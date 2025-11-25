@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8" />
+    <title>Ma Mini App Telegram</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+      body {
+        font-family: sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #111;
+        color: #fff;
+      }
+      button {
+        padding: 10px 18px;
+        border: none;
+        border-radius: 6px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Bienvenue dans ma mini app 👋</h1>
+    <p id="user"></p>
+
+    <button id="btn">Envoyer une réponse au bot</button>
+
+    <script>
+      const tg = window.Telegram.WebApp;
+      tg.expand(); // prend toute la hauteur
+
+      // Afficher le user
+      const userP = document.getElementById("user");
+      if (tg.initDataUnsafe?.user) {
+        userP.textContent = "Salut " + tg.initDataUnsafe.user.first_name + " !";
+      }
+
+      // Bouton qui renvoie des données au bot
+      document.getElementById("btn").onclick = () => {
+        tg.sendData("clic_bouton_ok"); // côté bot tu recevras ça
+      };
+    </script>
+  </body>
+</html>
