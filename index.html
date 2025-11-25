@@ -1,275 +1,120 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-    <meta charset="UTF-8" />
-    <title>Shop Du Lev – Tiramisus</title>
-    <script src="https://telegram.org/js/telegram-web-app.js"></script>
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <style>
-      :root {
-        --bg: #050712;
-        --bg-card: rgba(8, 12, 32, 0.9);
-        --accent: #9b5cff;
-        --accent2: #25f4ee;
-        --text: #f8f8ff;
-        --muted: #8b8ea5;
-        --danger: #ff3b6a;
-        --radius-lg: 18px;
-        --radius-md: 12px;
-      }
+<html>
+<head>
+<meta charset="UTF-8" />
+<title>Shop Du Lev – Catalogue</title>
 
-      * {
-        box-sizing: border-box;
+<style>
+    body {
         margin: 0;
-        padding: 0;
-      }
-
-      body {
-        font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
-          sans-serif;
-        background: radial-gradient(circle at top, #241654 0, #050712 55%);
-        color: var(--text);
-        padding: 16px 14px 24px;
-      }
-
-      .app {
-        max-width: 520px;
-        margin: 0 auto;
-      }
-
-      .header {
-        display: flex;
-        align-items: center;
-        gap: 14px;
-        margin-bottom: 18px;
-      }
-
-      .logo {
-        width: 46px;
-        height: 46px;
-        border-radius: 50%;
-        background: radial-gradient(circle at 30% 0, #ffffff 0, #00ffb8 25%, #220066 70%);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 700;
-        font-size: 19px;
-        color: #050712;
-        box-shadow: 0 0 18px rgba(0, 255, 184, 0.7);
-      }
-
-      .header-text h1 {
-        font-size: 20px;
-        font-weight: 700;
-        letter-spacing: 0.02em;
-      }
-
-      .header-text p {
-        font-size: 13px;
-        color: var(--muted);
-        margin-top: 2px;
-      }
-
-      .user-pill {
-        margin-top: 6px;
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        padding: 4px 9px;
-        border-radius: 999px;
-        background: rgba(255, 255, 255, 0.04);
-        border: 1px solid rgba(144, 144, 255, 0.15);
-        font-size: 11px;
-        color: var(--muted);
-      }
-
-      .user-dot {
-        width: 6px;
-        height: 6px;
-        border-radius: 50%;
-        background: #25f4ee;
-        box-shadow: 0 0 8px #25f4ee;
-      }
-
-      .section-title {
-        display: flex;
-        justify-content: space-between;
-        align-items: baseline;
-        margin: 12px 2px 8px;
-      }
-
-      .section-title h2 {
-        font-size: 15px;
-        letter-spacing: 0.03em;
-        text-transform: uppercase;
-        color: #dadcfb;
-      }
-
-      .section-title span {
-        font-size: 11px;
-        color: var(--muted);
-      }
-
-      .catalog {
-        display: flex;
-        flex-direction: column;
-        gap: 12px;
-        margin-top: 4px;
-      }
-
-      .card {
-        position: relative;
-        border-radius: var(--radius-lg);
-        padding: 12px 12px 11px;
-        background: var(--bg-card);
-        overflow: hidden;
-        border: 1px solid rgba(121, 121, 255, 0.35);
-      }
-
-      .card::before {
-        content: "";
-        position: absolute;
-        inset: -40%;
-        background: radial-gradient(
-          circle at top left,
-          rgba(155, 92, 255, 0.25),
-          transparent 55%
-        );
-        opacity: 0.7;
-        pointer-events: none;
-      }
-
-      .card-top {
-        display: flex;
-        justify-content: space-between;
-        gap: 10px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .card-main {
-        flex: 1;
-      }
-
-      .badge-row {
-        display: flex;
-        gap: 6px;
-        margin-bottom: 4px;
-        flex-wrap: wrap;
-      }
-
-      .badge {
-        font-size: 10px;
-        padding: 2px 7px;
-        border-radius: 999px;
-        border: 1px solid rgba(155, 92, 255, 0.7);
-        color: var(--accent2);
-        background: rgba(5, 7, 18, 0.8);
-        text-transform: uppercase;
-        letter-spacing: 0.07em;
-      }
-
-      .badge.hot {
-        border-color: var(--danger);
-        color: #ffd6e4;
-      }
-
-      .card-title {
-        font-size: 15px;
-        font-weight: 600;
-      }
-
-      .card-desc {
-        margin-top: 2px;
-        font-size: 12px;
-        color: var(--muted);
-      }
-
-      .card-meta {
-        margin-top: 6px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        gap: 8px;
-      }
-
-      .price {
-        font-size: 16px;
-        font-weight: 700;
-      }
-
-      .price span {
-        font-size: 11px;
-        font-weight: 500;
-        color: var(--muted);
-        margin-left: 3px;
-      }
-
-      .stock {
-        font-size: 11px;
-        color: #a0ffcf;
-      }
-
-      .card-actions {
-        margin-top: 10px;
-        display: flex;
-        gap: 8px;
-      }
-
-      .btn {
-        flex: 1;
-        font-size: 13px;
-        border-radius: var(--radius-md);
-        padding: 8px 10px;
-        border: none;
-        cursor: pointer;
-        font-weight: 600;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        gap: 6px;
-        transition: transform 0.08s ease, box-shadow 0.1s ease, background 0.1s ease;
-      }
-
-      .btn-primary {
-        background: linear-gradient(135deg, var(--accent), var(--accent2));
-        color: #050712;
-        box-shadow: 0 0 14px rgba(155, 92, 255, 0.7);
-      }
-
-      .btn-ghost {
-        max-width: 120px;
-        padding-inline: 10px;
-        background: transparent;
-        color: var(--muted);
-        border: 1px dashed rgba(120, 123, 164, 0.8);
-      }
-
-      .btn:active {
-        transform: scale(0.97);
-        box-shadow: 0 0 6px rgba(155, 92, 255, 0.5);
-      }
-
-      .tagline {
-        margin-top: 18px;
-        font-size: 11px;
-        color: var(--muted);
+        padding: 20px;
+        background: radial-gradient(circle,#1d0033,#000);
+        font-family: Arial, sans-serif;
+        color: #fff;
         text-align: center;
-      }
+    }
 
-      .tagline span {
-        color: var(--accent2);
-      }
+    /* LOGO */
+    .logo {
+        width: 90px;
+        height: 90px;
+        border-radius: 50%;
+        margin: 10px auto 30px;
+        background: linear-gradient(145deg,#00ffd9,#25004f);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 28px;
+        font-weight: bold;
+        box-shadow: 0 0 20px #00ffd9;
+    }
 
-      @media (min-width: 600px) {
-        body {
-          padding-top: 20px;
-        }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="app">
-      <header class="header">
-        <div class="logo">SL</div>
-        <div class="header-text
+    /* BOUTONS PRODUITS */
+    .btn {
+        width: 85%;
+        margin: 15px auto;
+        padding: 18px;
+        font-size: 18px;
+        border-radius: 12px;
+        border: none;
+        background: rgba(80,0,150,0.35);
+        color: #fff;
+        backdrop-filter: blur(6px);
+        text-shadow: 0 0 6px #c084ff;
+        box-shadow: 0 0 18px #5a00ff inset, 0 0 12px #c084ff;
+        transition: 0.25s;
+    }
+
+    .btn:hover {
+        transform: scale(1.04);
+        box-shadow: 0 0 25px #8b5cf6 inset, 0 0 18px #d8b4fe;
+    }
+
+    /* PRODUIT */
+    .product {
+        width: 90%;
+        margin: 25px auto;
+        padding: 20px;
+        background: rgba(40,0,70,0.4);
+        border-radius: 18px;
+        box-shadow: 0 0 20px #7e22ce;
+    }
+
+    .product img {
+        width: 100%;
+        border-radius: 12px;
+        margin-bottom: 12px;
+        box-shadow: 0 0 15px #a855f7;
+    }
+
+    .price {
+        font-size: 20px;
+        margin-top: 10px;
+        color: #00eaff;
+        font-weight: bold;
+        text-shadow: 0 0 10px #00eaff;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="logo">SL</div>
+
+<button class="btn">Mini App Du Lev</button>
+<button class="btn">Réseaux Sociaux</button>
+<button class="btn">Livraison 🚚</button>
+
+<!-- PRODUITS -->
+<div class="product">
+    <img src="https://i.imgur.com/FvNqVpk.jpeg">
+    <h2>Écouteurs Bluetooth</h2>
+    <p class="price">34.99 €</p>
+</div>
+
+<div class="product">
+    <img src="https://i.imgur.com/0dE0b09.jpeg">
+    <h2>Powerbank 20 000 mAh</h2>
+    <p class="price">29.99 €</p>
+</div>
+
+<div class="product">
+    <img src="https://i.imgur.com/ZgRv0qZ.jpeg">
+    <h2>Tiramisu Fraise Framboise</h2>
+    <p class="price">5.50 €</p>
+</div>
+
+<div class="product">
+    <img src="https://i.imgur.com/w9Qq2Qp.jpeg">
+    <h2>Tiramisu Oréo</h2>
+    <p class="price">5.50 €</p>
+</div>
+
+<div class="product">
+    <img src="https://i.imgur.com/yqZ5X5u.jpeg">
+    <h2>Pack Trio Tiramisu</h2>
+    <p class="price">14.99 €</p>
+</div>
+
+</body>
+</html>
