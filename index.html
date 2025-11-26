@@ -6,14 +6,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
-    /* ---------- GLOBAL ---------- */
     * {
       box-sizing: border-box;
     }
 
     body {
       margin: 0;
-      padding: 20px 10px 40px;
+      padding: 20px 10px 70px; /* un peu plus de place pour la barre panier */
       font-family: -apple-system, system-ui, sans-serif;
       background: radial-gradient(circle at top, #14002b, #020012 60%, #000000);
       color: #fff;
@@ -68,7 +67,7 @@
       background: rgba(140, 0, 255, 0.9);
     }
 
-    /* ---------- PRODUCTS / CATALOGUE ---------- */
+    /* ---------- CATALOGUE ---------- */
     #catalogue {
       margin-top: 12px;
     }
@@ -151,7 +150,7 @@
       box-shadow: 0 0 8px #22d3ee;
     }
 
-    /* ---------- OVERLAY POPUP (SOCIALS) ---------- */
+    /* ---------- OVERLAYS GLOBAUX ---------- */
     .overlay {
       position: fixed;
       inset: 0;
@@ -197,7 +196,8 @@
       display: block;
     }
 
-    .close-btn {
+    .close-btn,
+    .primary-btn {
       margin-top: 14px;
       width: 100%;
       padding: 13px 16px;
@@ -212,9 +212,133 @@
       transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
-    .close-btn:active {
+    .primary-btn {
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      box-shadow: 0 0 20px #22d3eeaa;
+      margin-top: 10px;
+    }
+
+    .close-btn:active,
+    .primary-btn:active {
       transform: scale(0.97);
       box-shadow: 0 0 10px #ec4899aa;
+    }
+
+    /* ---------- MODAL COMMANDE / PANIER ---------- */
+    .modal-body {
+      font-size: 14px;
+      text-align: left;
+      margin-bottom: 10px;
+    }
+
+    .qty-input {
+      width: 100%;
+      padding: 10px 12px;
+      border-radius: 12px;
+      border: 1px solid #4c1d95;
+      background: #020013;
+      color: #e5e7eb;
+      font-size: 15px;
+      margin: 6px 0 2px;
+      text-align: center;
+    }
+
+    .qty-input::-webkit-outer-spin-button,
+    .qty-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .qty-input[type="number"] {
+      -moz-appearance: textfield;
+    }
+
+    .modal-note {
+      font-size: 12px;
+      color: #9ca3af;
+      margin-bottom: 4px;
+      text-align: left;
+    }
+
+    .cart-list {
+      max-height: 260px;
+      overflow-y: auto;
+      margin: 10px 0 6px;
+      text-align: left;
+      font-size: 14px;
+    }
+
+    .cart-item {
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .cart-item:last-child {
+      border-bottom: none;
+    }
+
+    .cart-item-name {
+      font-weight: 600;
+    }
+
+    .cart-item-qty {
+      color: #a5b4fc;
+      font-size: 13px;
+    }
+
+    .cart-item-price {
+      font-weight: 600;
+      color: #22d3ee;
+    }
+
+    .cart-total {
+      margin-top: 8px;
+      font-weight: 700;
+      text-align: right;
+      color: #22d3ee;
+    }
+
+    .empty-cart {
+      margin-top: 6px;
+      font-size: 13px;
+      color: #9ca3af;
+    }
+
+    /* ---------- BARRE PANIER ---------- */
+    .cart-bar {
+      position: fixed;
+      left: 50%;
+      bottom: 14px;
+      transform: translateX(-50%);
+      width: calc(100% - 32px);
+      max-width: 520px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, #22c55e, #a855f7);
+      box-shadow:
+        0 0 20px #22c55eaa,
+        0 0 40px #4c1d95aa;
+      color: #020617;
+      font-size: 15px;
+      font-weight: 700;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      z-index: 900;
+    }
+
+    .cart-bar span {
+      display: block;
+    }
+
+    .cart-bar-count {
+      font-size: 13px;
+      font-weight: 500;
+      opacity: 0.9;
     }
   </style>
 </head>
@@ -258,7 +382,7 @@
       </div>
     </div>
 
-    <!-- Produit 3 : exemple tiramisus -->
+    <!-- Produit 3 : exemple tiramisu -->
     <div class="product">
       <div class="product-inner">
         <div class="fake-image"></div>
@@ -272,55 +396,277 @@
     </div>
   </div>
 
+  <!-- BARRE PANIER -->
+  <div class="cart-bar" id="cart-bar">
+    <span>🛒 Panier vide</span>
+    <span class="cart-bar-count">0 article – 0,00 €</span>
+  </div>
+
   <!-- POPUP RÉSEAUX SOCIAUX -->
   <div class="overlay" id="overlay-reseaux">
     <div class="modal">
       <div class="modal-title">Réseaux sociaux</div>
-
-      <!-- ⚠️ ICI le chemin de ton image dans GitHub -->
+      <!-- ⚠️ Image dans ton repo -->
       <img src="reseaux-test.png.PNG" alt="Réseaux sociaux Shop Du Lev" class="social-img" />
-
       <button class="close-btn" id="close-reseaux">Fermer</button>
     </div>
   </div>
 
+  <!-- POPUP CHOIX QUANTITÉ / AJOUT PANIER -->
+  <div class="overlay" id="overlay-commande">
+    <div class="modal">
+      <div class="modal-title" id="commande-title">Ajouter au panier</div>
+      <div class="modal-body" id="commande-body">
+        <!-- Texte injecté en JS -->
+      </div>
+      <input
+        type="number"
+        min="1"
+        step="1"
+        value="1"
+        class="qty-input"
+        id="commande-qty"
+      />
+      <div class="modal-note">Entrez la quantité souhaitée puis ajoutez au panier.</div>
+      <button class="primary-btn" id="btn-add-cart">Ajouter au panier</button>
+      <button class="close-btn" id="btn-cancel-commande">Annuler</button>
+    </div>
+  </div>
+
+  <!-- POPUP DÉTAIL PANIER -->
+  <div class="overlay" id="overlay-panier">
+    <div class="modal">
+      <div class="modal-title">Votre panier</div>
+      <div class="cart-list" id="cart-list"></div>
+      <div class="cart-total" id="cart-total"></div>
+      <div class="empty-cart" id="empty-cart-msg">Votre panier est vide.</div>
+      <button class="close-btn" id="btn-close-panier">Fermer</button>
+    </div>
+  </div>
+
   <script>
-    // Boutons du haut
+    /* --------- BOUTONS DU HAUT --------- */
     const btnMiniApp = document.getElementById("btn-miniapp");
     const btnReseaux = document.getElementById("btn-reseaux");
     const btnLivraison = document.getElementById("btn-livraison");
 
-    // Overlay réseaux
-    const overlayReseaux = document.getElementById("overlay-reseaux");
-    const closeReseaux = document.getElementById("close-reseaux");
+    const catalogue = document.getElementById("catalogue");
 
-    // Scroll doux vers le catalogue
     btnMiniApp.addEventListener("click", () => {
-      const catalogue = document.getElementById("catalogue");
       catalogue.scrollIntoView({ behavior: "smooth" });
     });
 
-    // Ouvrir popup réseaux
+    btnLivraison.addEventListener("click", () => {
+      alert(
+        "Livraison Shop Du Lev 🚚\\n\\n" +
+        "• Besançon & alentours\\n" +
+        "• Commande par le bot / DM\\n" +
+        "• Paiement à la livraison ou en ligne."
+      );
+    });
+
+    /* --------- POPUP RÉSEAUX --------- */
+    const overlayReseaux = document.getElementById("overlay-reseaux");
+    const closeReseaux = document.getElementById("close-reseaux");
+
     btnReseaux.addEventListener("click", () => {
       overlayReseaux.classList.add("show");
     });
 
-    // Fermer popup réseaux
     closeReseaux.addEventListener("click", () => {
       overlayReseaux.classList.remove("show");
     });
 
-    // Fermer si on clique en dehors de la carte
-    overlayReseaux.addEventListener("click", (event) => {
-      if (event.target === overlayReseaux) {
+    overlayReseaux.addEventListener("click", (e) => {
+      if (e.target === overlayReseaux) {
         overlayReseaux.classList.remove("show");
       }
     });
 
-    // Livraison : pour l'instant, petit message simple
-    btnLivraison.addEventListener("click", () => {
-      alert("Livraison Shop Du Lev 🚚\n\n• Besançon & alentours\n• Sur rendez-vous en DM\n• Paiement à la livraison ou en ligne.");
+    /* --------- PANIER --------- */
+    const cartBar = document.getElementById("cart-bar");
+    const overlayCommande = document.getElementById("overlay-commande");
+    const overlayPanier = document.getElementById("overlay-panier");
+
+    const commandeTitle = document.getElementById("commande-title");
+    const commandeBody = document.getElementById("commande-body");
+    const commandeQty = document.getElementById("commande-qty");
+    const btnAddCart = document.getElementById("btn-add-cart");
+    const btnCancelCommande = document.getElementById("btn-cancel-commande");
+
+    const cartList = document.getElementById("cart-list");
+    const cartTotal = document.getElementById("cart-total");
+    const emptyCartMsg = document.getElementById("empty-cart-msg");
+    const btnClosePanier = document.getElementById("btn-close-panier");
+
+    let cart = [];
+    let currentProduct = null;
+
+    // Récupération des boutons Commander
+    document.querySelectorAll(".product").forEach((productEl) => {
+      const nameEl = productEl.querySelector(".product-name");
+      const priceEl = productEl.querySelector(".price");
+      const btnOrder = productEl.querySelector(".order-btn");
+
+      const name = nameEl.textContent.trim();
+      const price = parsePrice(priceEl.textContent);
+
+      btnOrder.addEventListener("click", () => {
+        openCommandeModal(name, price);
+      });
     });
+
+    function parsePrice(text) {
+      // "34,99 €" -> 34.99
+      const clean = text.replace(/[^\d,]/g, "").replace(",", ".");
+      const value = parseFloat(clean);
+      return isNaN(value) ? 0 : value;
+    }
+
+    function formatPrice(value) {
+      return value.toFixed(2).replace(".", ",") + " €";
+    }
+
+    function openCommandeModal(name, price) {
+      currentProduct = { name, price };
+      commandeTitle.textContent = "Ajouter au panier";
+      commandeBody.textContent = name + " – " + formatPrice(price);
+      commandeQty.value = "1";
+      overlayCommande.classList.add("show");
+      commandeQty.focus();
+    }
+
+    function closeCommandeModal() {
+      overlayCommande.classList.remove("show");
+      currentProduct = null;
+    }
+
+    btnCancelCommande.addEventListener("click", closeCommandeModal);
+
+    overlayCommande.addEventListener("click", (e) => {
+      if (e.target === overlayCommande) {
+        closeCommandeModal();
+      }
+    });
+
+    btnAddCart.addEventListener("click", () => {
+      if (!currentProduct) return;
+
+      let qty = parseInt(commandeQty.value, 10);
+      if (isNaN(qty) || qty <= 0) {
+        alert("Merci d’entrer une quantité valide (au moins 1).");
+        return;
+      }
+
+      // Cherche si produit déjà dans le panier
+      const existing = cart.find((item) => item.name === currentProduct.name);
+      if (existing) {
+        existing.qty += qty;
+      } else {
+        cart.push({
+          name: currentProduct.name,
+          price: currentProduct.price,
+          qty: qty,
+        });
+      }
+
+      updateCartBar();
+      closeCommandeModal();
+    });
+
+    function updateCartBar() {
+      let totalQty = 0;
+      let totalPrice = 0;
+
+      cart.forEach((item) => {
+        totalQty += item.qty;
+        totalPrice += item.qty * item.price;
+      });
+
+      const labelSpan = cartBar.querySelector("span:first-child");
+      const countSpan = cartBar.querySelector(".cart-bar-count");
+
+      if (totalQty === 0) {
+        labelSpan.textContent = "🛒 Panier vide";
+        countSpan.textContent = "0 article – 0,00 €";
+      } else {
+        labelSpan.textContent = "🛒 Voir le panier";
+        const articleWord = totalQty > 1 ? "articles" : "article";
+        countSpan.textContent =
+          totalQty + " " + articleWord + " – " + formatPrice(totalPrice);
+      }
+    }
+
+    // Ouverture du détail du panier
+    cartBar.addEventListener("click", () => {
+      openCartModal();
+    });
+
+    function openCartModal() {
+      cartList.innerHTML = "";
+      let totalQty = 0;
+      let totalPrice = 0;
+
+      if (cart.length === 0) {
+        emptyCartMsg.style.display = "block";
+        cartTotal.textContent = "";
+      } else {
+        emptyCartMsg.style.display = "none";
+
+        cart.forEach((item) => {
+          totalQty += item.qty;
+          totalPrice += item.qty * item.price;
+
+          const row = document.createElement("div");
+          row.className = "cart-item";
+
+          const left = document.createElement("div");
+          const nameSpan = document.createElement("div");
+          nameSpan.className = "cart-item-name";
+          nameSpan.textContent = item.name;
+
+          const qtySpan = document.createElement("div");
+          qtySpan.className = "cart-item-qty";
+          qtySpan.textContent = "Quantité : " + item.qty;
+
+          left.appendChild(nameSpan);
+          left.appendChild(qtySpan);
+
+          const right = document.createElement("div");
+          right.className = "cart-item-price";
+          right.textContent = formatPrice(item.qty * item.price);
+
+          row.appendChild(left);
+          row.appendChild(right);
+
+          cartList.appendChild(row);
+        });
+
+        cartTotal.textContent =
+          "Total (" +
+          totalQty +
+          (totalQty > 1 ? " articles" : " article") +
+          ") : " +
+          formatPrice(totalPrice);
+      }
+
+      overlayPanier.classList.add("show");
+    }
+
+    function closeCartModal() {
+      overlayPanier.classList.remove("show");
+    }
+
+    btnClosePanier.addEventListener("click", closeCartModal);
+
+    overlayPanier.addEventListener("click", (e) => {
+      if (e.target === overlayPanier) {
+        closeCartModal();
+      }
+    });
+
+    // Init affichage
+    updateCartBar();
   </script>
 </body>
 </html>
