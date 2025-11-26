@@ -1,61 +1,88 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <title>Shop Du Lev — Catalogue</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shop Du Lev – Catalogue</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <style>
+    /* ---------- GLOBAL ---------- */
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       padding: 20px 10px 40px;
-      background: radial-gradient(circle at top,#0b0018,#000);
       font-family: -apple-system, system-ui, sans-serif;
+      background: radial-gradient(circle at top, #14002b, #020012 60%, #000000);
       color: #fff;
       text-align: center;
     }
 
+    /* ---------- LOGO ---------- */
     .logo {
       width: 90px;
       height: 90px;
       border-radius: 50%;
-      margin: 10px auto 30px;
-      background: radial-gradient(circle at 30% 30%, #00ffd9, #0050ff);
+      margin: 5px auto 24px;
+      background: radial-gradient(circle at 30% 20%, #00ffd9, #0070f3 60%, #00111f);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 30px;
-      font-weight: 700;
-      box-shadow: 0 0 24px #00ffd9aa;
+      font-weight: 800;
+      box-shadow: 0 0 28px #00ffd9aa;
     }
 
+    /* ---------- TOP BUTTONS ---------- */
     .top-buttons {
       width: 100%;
-      max-width: 480px;
-      margin: 0 auto 10px;
+      max-width: 520px;
+      margin: 0 auto 26px;
     }
 
     .top-btn {
       width: 100%;
-      margin: 8px 0;
-      padding: 14px;
-      font-size: 18px;
-      border-radius: 12px;
+      margin: 10px 0;
+      padding: 16px 14px;
+      font-size: 17px;
+      border-radius: 16px;
       border: none;
-      background: rgba(90, 0, 180, 0.55);
+      background: rgba(110, 0, 255, 0.75);
       color: #fff;
       text-shadow: 0 0 6px #e9d5ff;
-      box-shadow: 0 0 20px #8b5cf6aa;
+      box-shadow:
+        0 0 18px #8b5cf6,
+        0 0 32px #4c1d95;
+      font-weight: 600;
+      cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+
+    .top-btn:active {
+      transform: scale(0.97);
+      box-shadow:
+        0 0 8px #8b5cf6,
+        0 0 14px #4c1d95;
+      background: rgba(140, 0, 255, 0.9);
+    }
+
+    /* ---------- PRODUCTS / CATALOGUE ---------- */
+    #catalogue {
+      margin-top: 12px;
     }
 
     .product {
       width: 100%;
-      max-width: 480px;
-      margin: 16px auto;
-      padding: 18px 16px 14px;
-      border-radius: 18px;
-      background: rgba(40, 0, 75, 0.7);
-      box-shadow: 0 0 26px #7e22ce;
+      max-width: 520px;
+      margin: 18px auto;
+      padding: 20px 18px 16px;
+      border-radius: 20px;
+      background: rgba(40, 0, 75, 0.9);
+      box-shadow:
+        0 0 28px #7e22ce,
+        0 0 70px #4c1d95;
       position: relative;
       overflow: hidden;
     }
@@ -63,169 +90,237 @@
     .product::before {
       content: "";
       position: absolute;
-      inset: -40%;
-      background: radial-gradient(circle at top, #a855f7, transparent 60%);
-      opacity: .35;
+      inset: -45%;
+      background: radial-gradient(circle at top, #f97316, transparent 55%);
+      opacity: 0.4;
       pointer-events: none;
     }
 
     .product-inner {
       position: relative;
       z-index: 1;
-      text-align: left;
     }
 
     .fake-image {
       width: 100%;
-      height: 130px;
-      border-radius: 14px;
-      margin-bottom: 10px;
-      background: radial-gradient(circle at 20% 20%, #f97316, #020617);
-      box-shadow: 0 0 18px #f97316aa;
+      height: 140px;
+      border-radius: 18px;
+      margin-bottom: 14px;
+      background: radial-gradient(circle at 20% 20%, #f97316, #0a0020 60%, #020617);
+      box-shadow: 0 0 24px #f97316aa;
     }
 
     .product-name {
-      font-size: 18px;
-      font-weight: 600;
+      font-size: 20px;
+      font-weight: 700;
       margin-bottom: 6px;
+      text-align: left;
     }
 
     .product-desc {
-      font-size: 13px;
+      font-size: 14px;
       color: #c4b5fd;
-      margin-bottom: 10px;
+      margin-bottom: 12px;
+      text-align: left;
     }
 
     .price {
-      font-size: 18px;
-      font-weight: 700;
+      font-size: 20px;
+      font-weight: 800;
       color: #22d3ee;
       text-shadow: 0 0 8px #22d3ee;
+      text-align: left;
     }
 
     .order-btn {
-      margin-top: 10px;
-      padding: 10px 14px;
+      margin-top: 12px;
+      padding: 11px 20px;
       border-radius: 999px;
       border: none;
-      background: linear-gradient(135deg,#22d3ee,#a855f7);
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
       color: #020617;
-      font-size: 14px;
+      font-size: 16px;
       font-weight: 700;
-      box-shadow: 0 0 16px #22d3eeaa;
+      box-shadow: 0 0 18px #22d3ee;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
-    /* POPUP réseaux sociaux */
-    .popup-bg {
-      display: none;
+    .order-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 8px #22d3ee;
+    }
+
+    /* ---------- OVERLAY POPUP (SOCIALS) ---------- */
+    .overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(8px);
-      justify-content: center;
+      background: radial-gradient(circle at top, #120022, #020010 65%);
+      display: flex;
       align-items: center;
+      justify-content: center;
+      padding: 18px 10px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.2s ease;
       z-index: 999;
     }
 
-    .popup-box {
-      background: #12001f;
-      padding: 12px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 380px;
-      box-shadow: 0 0 25px #9a00ff;
-      border: 2px solid #8a2be2;
+    .overlay.show {
+      opacity: 1;
+      pointer-events: auto;
     }
 
-    .popup-box img {
+    .modal {
       width: 100%;
-      border-radius: 16px;
-      box-shadow: 0 0 20px #bb29ff;
+      max-width: 520px;
+      border-radius: 26px;
+      padding: 18px 12px 16px;
+      background: radial-gradient(circle at top, #1a022b, #050010);
+      box-shadow:
+        0 0 32px #a855f7,
+        0 0 80px #4c1d95;
+      border: 2px solid rgba(236, 72, 153, 0.8);
+      position: relative;
+    }
+
+    .modal-title {
+      font-size: 18px;
+      font-weight: 600;
+      margin-bottom: 10px;
+      text-align: left;
+    }
+
+    .social-img {
+      width: 100%;
+      border-radius: 18px;
       display: block;
     }
 
     .close-btn {
-      margin-top: 15px;
-      padding: 10px 16px;
-      background: #ff006a;
-      border: none;
-      border-radius: 12px;
-      font-size: 16px;
-      color: #fff;
-      box-shadow: 0 0 12px #ff006a;
+      margin-top: 14px;
       width: 100%;
+      padding: 13px 16px;
+      border-radius: 999px;
+      border: none;
+      font-size: 17px;
+      font-weight: 700;
+      background: linear-gradient(135deg, #ec4899, #f97316);
+      color: #020617;
+      box-shadow: 0 0 24px #ec4899aa;
+      cursor: pointer;
+      transition: transform 0.12s ease, box-shadow 0.12s ease;
+    }
+
+    .close-btn:active {
+      transform: scale(0.97);
+      box-shadow: 0 0 10px #ec4899aa;
     }
   </style>
 </head>
 
 <body>
-
+  <!-- LOGO -->
   <div class="logo">SL</div>
 
+  <!-- TOP BUTTONS -->
   <div class="top-buttons">
-    <button class="top-btn">Mini App Du Lev</button>
-    <button class="top-btn" onclick="openPopup()">Réseaux Sociaux</button>
-    <button class="top-btn">Livraison 🚛</button>
+    <button class="top-btn" id="btn-miniapp">Mini App Du Lev</button>
+    <button class="top-btn" id="btn-reseaux">Réseaux Sociaux</button>
+    <button class="top-btn" id="btn-livraison">Livraison 🚚</button>
   </div>
 
   <!-- CATALOGUE -->
-  <div class="product">
-    <div class="product-inner">
-      <div class="fake-image"></div>
-      <div class="product-name">🎧 Écouteurs Bluetooth</div>
-      <div class="product-desc">Autonomie, basses, réduction de bruit.</div>
-      <div class="price">34,99 €</div>
-      <button class="order-btn">Commander</button>
+  <div id="catalogue">
+    <!-- Produit 1 -->
+    <div class="product">
+      <div class="product-inner">
+        <div class="fake-image"></div>
+        <div class="product-name">🎧 Écouteurs Bluetooth</div>
+        <div class="product-desc">
+          Autonomie, basses, réduction de bruit.
+        </div>
+        <div class="price">34,99 €</div>
+        <button class="order-btn">Commander</button>
+      </div>
     </div>
-  </div>
 
-  <div class="product">
-    <div class="product-inner">
-      <div class="fake-image"></div>
-      <div class="product-name">🔋 Powerbank 20 000 mAh</div>
-      <div class="product-desc">Recharge rapide USB-C & USB.</div>
-      <div class="price">29,99 €</div>
-      <button class="order-btn">Commander</button>
+    <!-- Produit 2 -->
+    <div class="product">
+      <div class="product-inner">
+        <div class="fake-image"></div>
+        <div class="product-name">🔋 Powerbank 20 000 mAh</div>
+        <div class="product-desc">
+          Recharge rapide USB-C & USB. Parfait pour les longues journées.
+        </div>
+        <div class="price">29,99 €</div>
+        <button class="order-btn">Commander</button>
+      </div>
     </div>
-  </div>
 
-  <div class="product">
-    <div class="product-inner">
-      <div class="fake-image"></div>
-      <div class="product-name">🍓 Tiramisu Fraise Framboise</div>
-      <div class="product-desc">Frais & fait maison par Bella Misu.</div>
-      <div class="price">5,50 €</div>
-      <button class="order-btn">Commander</button>
-    </div>
-  </div>
-
-  <div class="product">
-    <div class="product-inner">
-      <div class="fake-image"></div>
-      <div class="product-name">🍫 Tiramisu Oréo</div>
-      <div class="product-desc">Ultra gourmand, parfait pour le dessert.</div>
-      <div class="price">5,50 €</div>
-      <button class="order-btn">Commander</button>
+    <!-- Produit 3 : exemple tiramisus -->
+    <div class="product">
+      <div class="product-inner">
+        <div class="fake-image"></div>
+        <div class="product-name">🍓 Tiramisu Fraise Framboise</div>
+        <div class="product-desc">
+          Frais & fait maison. Edition été Shop Du Lev.
+        </div>
+        <div class="price">5,50 €</div>
+        <button class="order-btn">Commander</button>
+      </div>
     </div>
   </div>
 
   <!-- POPUP RÉSEAUX SOCIAUX -->
-  <div class="popup-bg" id="popup">
-    <div class="popup-box">
-      <!-- ici on utilise l’image du repo -->
-      <img src="reseaux-test.png.PNG" alt="Réseaux sociaux">
-      <button class="close-btn" onclick="closePopup()">Fermer</button>
+  <div class="overlay" id="overlay-reseaux">
+    <div class="modal">
+      <div class="modal-title">Réseaux sociaux</div>
+
+      <!-- ⚠️ ICI le chemin de ton image dans GitHub -->
+      <img src="reseaux-test.png.PNG" alt="Réseaux sociaux Shop Du Lev" class="social-img" />
+
+      <button class="close-btn" id="close-reseaux">Fermer</button>
     </div>
   </div>
 
   <script>
-    function openPopup() {
-      document.getElementById('popup').style.display = "flex";
-    }
-    function closePopup() {
-      document.getElementById('popup').style.display = "none";
-    }
-  </script>
+    // Boutons du haut
+    const btnMiniApp = document.getElementById("btn-miniapp");
+    const btnReseaux = document.getElementById("btn-reseaux");
+    const btnLivraison = document.getElementById("btn-livraison");
 
+    // Overlay réseaux
+    const overlayReseaux = document.getElementById("overlay-reseaux");
+    const closeReseaux = document.getElementById("close-reseaux");
+
+    // Scroll doux vers le catalogue
+    btnMiniApp.addEventListener("click", () => {
+      const catalogue = document.getElementById("catalogue");
+      catalogue.scrollIntoView({ behavior: "smooth" });
+    });
+
+    // Ouvrir popup réseaux
+    btnReseaux.addEventListener("click", () => {
+      overlayReseaux.classList.add("show");
+    });
+
+    // Fermer popup réseaux
+    closeReseaux.addEventListener("click", () => {
+      overlayReseaux.classList.remove("show");
+    });
+
+    // Fermer si on clique en dehors de la carte
+    overlayReseaux.addEventListener("click", (event) => {
+      if (event.target === overlayReseaux) {
+        overlayReseaux.classList.remove("show");
+      }
+    });
+
+    // Livraison : pour l'instant, petit message simple
+    btnLivraison.addEventListener("click", () => {
+      alert("Livraison Shop Du Lev 🚚\n\n• Besançon & alentours\n• Sur rendez-vous en DM\n• Paiement à la livraison ou en ligne.");
+    });
+  </script>
 </body>
 </html>
