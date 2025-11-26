@@ -124,7 +124,10 @@
   <button class="top-btn">Réseaux Sociaux</button>
   <button class="top-btn">Livraison 🚚</button>
 </div>
-
+  <div id="social-section" style="display:none; margin:20px 0;">
+    <img src="https://i.imgur.com/xyz123.jpg" 
+         style="width:100%; border-radius:14px; box-shadow:0 0 18px #22d3ee;">
+</div>
 <div class="product">
   <div class="product-inner">
     <div class="fake-image"></div>
@@ -154,6 +157,15 @@
     <button class="order-btn">Commander</button>
   </div>
 </div>
+<script>
+document.querySelectorAll(".top-btn")[1].onclick = function () {
+    const section = document.getElementById("social-section");
+    section.style.display = section.style.display === "none" ? "block" : "none";
+    section.scrollIntoView({ behavior: "smooth" });
+};
+</script>
 
+</body>
+</html>
 </body>
 </html>
