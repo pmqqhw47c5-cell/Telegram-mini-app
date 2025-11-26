@@ -8,80 +8,74 @@
   <style>
     * {
       box-sizing: border-box;
+      -webkit-tap-highlight-color: transparent;
     }
 
     body {
       margin: 0;
-      padding: 20px 10px 70px; /* un peu plus de place pour la barre panier */
+      padding: 20px 10px 90px;
+      background: radial-gradient(circle at top, #1b0033 0, #050012 60%, #020008 100%);
       font-family: -apple-system, system-ui, sans-serif;
-      background: radial-gradient(circle at top, #14002b, #020012 60%, #000000);
       color: #fff;
       text-align: center;
     }
 
-    /* ---------- LOGO ---------- */
+    /* Logo rond SL */
     .logo {
       width: 90px;
       height: 90px;
       border-radius: 50%;
-      margin: 5px auto 24px;
-      background: radial-gradient(circle at 30% 20%, #00ffd9, #0070f3 60%, #00111f);
+      margin: 0 auto 24px;
+      background: radial-gradient(circle at 30% 0, #00ffd9, #0080ff, #001233);
       display: flex;
       align-items: center;
       justify-content: center;
       font-size: 30px;
-      font-weight: 800;
-      box-shadow: 0 0 28px #00ffd9aa;
+      font-weight: 700;
+      box-shadow: 0 0 30px #00ffd980;
     }
 
-    /* ---------- TOP BUTTONS ---------- */
+    /* Boutons du haut */
     .top-buttons {
       width: 100%;
-      max-width: 520px;
-      margin: 0 auto 26px;
+      max-width: 480px;
+      margin: 0 auto 20px;
     }
 
     .top-btn {
       width: 100%;
-      margin: 10px 0;
-      padding: 16px 14px;
-      font-size: 17px;
-      border-radius: 16px;
+      margin: 8px 0;
+      padding: 14px 16px;
+      font-size: 18px;
+      border-radius: 14px;
       border: none;
-      background: rgba(110, 0, 255, 0.75);
+      background: rgba(120, 0, 255, 0.8);
       color: #fff;
-      text-shadow: 0 0 6px #e9d5ff;
-      box-shadow:
-        0 0 18px #8b5cf6,
-        0 0 32px #4c1d95;
       font-weight: 600;
+      text-shadow: 0 0 6px #e9d0ff;
+      box-shadow: 0 0 18px #9b3dff, 0 0 8px #2b004b inset;
       cursor: pointer;
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
     }
 
     .top-btn:active {
-      transform: scale(0.97);
-      box-shadow:
-        0 0 8px #8b5cf6,
-        0 0 14px #4c1d95;
-      background: rgba(140, 0, 255, 0.9);
+      transform: translateY(1px) scale(0.99);
+      box-shadow: 0 0 8px #9b3dff;
     }
 
-    /* ---------- CATALOGUE ---------- */
+    /* PRODUITS */
     #catalogue {
-      margin-top: 12px;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
     }
 
     .product {
       width: 100%;
-      max-width: 520px;
       margin: 18px auto;
-      padding: 20px 18px 16px;
+      padding: 18px 14px 16px;
       border-radius: 20px;
-      background: rgba(40, 0, 75, 0.9);
-      box-shadow:
-        0 0 28px #7e22ce,
-        0 0 70px #4c1d95;
+      background: rgba(55, 0, 90, 0.85);
+      box-shadow: 0 0 26px #7e22ce, 0 0 40px #2b004b inset;
       position: relative;
       overflow: hidden;
     }
@@ -89,9 +83,10 @@
     .product::before {
       content: "";
       position: absolute;
-      inset: -45%;
-      background: radial-gradient(circle at top, #f97316, transparent 55%);
-      opacity: 0.4;
+      inset: -50%;
+      background: radial-gradient(circle at top, #ff7af5, transparent 60%),
+                  radial-gradient(circle at bottom, #00ffd9, transparent 55%);
+      opacity: 0.25;
       pointer-events: none;
     }
 
@@ -102,191 +97,199 @@
 
     .fake-image {
       width: 100%;
-      height: 140px;
-      border-radius: 18px;
+      height: 130px;
+      border-radius: 16px;
       margin-bottom: 14px;
-      background: radial-gradient(circle at 20% 20%, #f97316, #0a0020 60%, #020617);
-      box-shadow: 0 0 24px #f97316aa;
+      background: radial-gradient(circle at 20% 0, #ffb347, transparent 60%),
+                  linear-gradient(120deg, #ff7a18, #0b0020 65%);
+      box-shadow: 0 0 20px #f97316aa;
     }
 
     .product-name {
       font-size: 20px;
       font-weight: 700;
       margin-bottom: 6px;
-      text-align: left;
     }
 
     .product-desc {
       font-size: 14px;
-      color: #c4b5fd;
-      margin-bottom: 12px;
-      text-align: left;
+      color: #d5cfff;
+      margin-bottom: 10px;
     }
 
     .price {
       font-size: 20px;
-      font-weight: 800;
+      font-weight: 700;
       color: #22d3ee;
       text-shadow: 0 0 8px #22d3ee;
-      text-align: left;
     }
 
     .order-btn {
       margin-top: 12px;
-      padding: 11px 20px;
+      padding: 10px 24px;
       border-radius: 999px;
       border: none;
       background: linear-gradient(135deg, #22d3ee, #a855f7);
       color: #020617;
       font-size: 16px;
       font-weight: 700;
-      box-shadow: 0 0 18px #22d3ee;
+      box-shadow: 0 0 16px #22d3ee;
       cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
     }
 
     .order-btn:active {
-      transform: scale(0.97);
-      box-shadow: 0 0 8px #22d3ee;
+      transform: translateY(1px) scale(0.98);
+      box-shadow: 0 0 6px #22d3ee;
     }
 
-    /* ---------- OVERLAYS GLOBAUX ---------- */
+    /* BARRE PANIER EN BAS */
+    #cart-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      padding: 10px 16px 14px;
+      background: radial-gradient(circle at top, #7c3aed, #020012 80%);
+      box-shadow: 0 -4px 22px #4c1d95;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 520px;
+      margin: 0 auto;
+      border-radius: 18px 18px 0 0;
+      cursor: pointer;
+      z-index: 30;
+    }
+
+    #cart-bar span:first-child {
+      font-weight: 600;
+      font-size: 15px;
+    }
+
+    .cart-bar-count {
+      font-size: 14px;
+      color: #c4b5fd;
+    }
+
+    /* OVERLAY GÉNÉRIQUE */
     .overlay {
       position: fixed;
       inset: 0;
-      background: radial-gradient(circle at top, #120022, #020010 65%);
-      display: flex;
+      background: rgba(0, 0, 0, 0.78);
+      display: none;
       align-items: center;
       justify-content: center;
-      padding: 18px 10px;
-      opacity: 0;
-      pointer-events: none;
-      transition: opacity 0.2s ease;
-      z-index: 999;
+      z-index: 40;
+      padding: 20px 10px;
     }
 
     .overlay.show {
-      opacity: 1;
-      pointer-events: auto;
+      display: flex;
     }
 
     .modal {
       width: 100%;
-      max-width: 520px;
-      border-radius: 26px;
-      padding: 18px 12px 16px;
-      background: radial-gradient(circle at top, #1a022b, #050010);
-      box-shadow:
-        0 0 32px #a855f7,
-        0 0 80px #4c1d95;
-      border: 2px solid rgba(236, 72, 153, 0.8);
-      position: relative;
-    }
-
-    .modal-title {
-      font-size: 18px;
-      font-weight: 600;
-      margin-bottom: 10px;
+      max-width: 480px;
+      background: #0b0015;
+      border-radius: 24px;
+      padding: 18px 16px 20px;
+      border: 2px solid #a855f7;
+      box-shadow: 0 0 26px #a855f7, 0 0 50px #22d3ee55;
       text-align: left;
     }
 
-    .social-img {
+    .modal-header {
+      font-size: 18px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .modal-body {
+      font-size: 15px;
+      margin-bottom: 14px;
+    }
+
+    .modal-actions {
+      margin-top: 18px;
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .btn-primary,
+    .btn-secondary {
+      flex: 1;
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: none;
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, #22d3ee, #a855f7);
+      color: #020617;
+      box-shadow: 0 0 14px #22d3ee;
+    }
+
+    .btn-secondary {
+      background: #111827;
+      color: #e5e7eb;
+      border: 1px solid #4b5563;
+    }
+
+    .btn-primary:active,
+    .btn-secondary:active {
+      transform: translateY(1px) scale(0.98);
+    }
+
+    /* POPUP RÉSEAUX */
+    #reseaux-image {
       width: 100%;
       border-radius: 18px;
       display: block;
     }
 
-    .close-btn,
-    .primary-btn {
-      margin-top: 14px;
-      width: 100%;
-      padding: 13px 16px;
+    /* MODAL COMMANDE */
+    #commande-qty {
+      width: 90px;
+      padding: 6px 10px;
       border-radius: 999px;
-      border: none;
-      font-size: 17px;
-      font-weight: 700;
-      background: linear-gradient(135deg, #ec4899, #f97316);
-      color: #020617;
-      box-shadow: 0 0 24px #ec4899aa;
-      cursor: pointer;
-      transition: transform 0.12s ease, box-shadow 0.12s ease;
-    }
-
-    .primary-btn {
-      background: linear-gradient(135deg, #22d3ee, #a855f7);
-      box-shadow: 0 0 20px #22d3eeaa;
-      margin-top: 10px;
-    }
-
-    .close-btn:active,
-    .primary-btn:active {
-      transform: scale(0.97);
-      box-shadow: 0 0 10px #ec4899aa;
-    }
-
-    /* ---------- MODAL COMMANDE / PANIER ---------- */
-    .modal-body {
-      font-size: 14px;
-      text-align: left;
-      margin-bottom: 10px;
-    }
-
-    .qty-input {
-      width: 100%;
-      padding: 10px 12px;
-      border-radius: 12px;
-      border: 1px solid #4c1d95;
-      background: #020013;
+      border: 1px solid #4b5563;
+      background: #020617;
       color: #e5e7eb;
       font-size: 15px;
-      margin: 6px 0 2px;
       text-align: center;
+      margin-top: 4px;
     }
 
-    .qty-input::-webkit-outer-spin-button,
-    .qty-input::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      margin: 0;
-    }
-
-    .qty-input[type="number"] {
-      -moz-appearance: textfield;
-    }
-
-    .modal-note {
-      font-size: 12px;
-      color: #9ca3af;
-      margin-bottom: 4px;
-      text-align: left;
-    }
-
-    .cart-list {
+    /* PANIER LISTE */
+    #cart-list {
       max-height: 260px;
       overflow-y: auto;
-      margin: 10px 0 6px;
-      text-align: left;
-      font-size: 14px;
+      margin-bottom: 10px;
+      padding-right: 4px;
     }
 
     .cart-item {
-      padding: 6px 0;
-      border-bottom: 1px solid rgba(148, 163, 184, 0.2);
       display: flex;
       justify-content: space-between;
-      gap: 12px;
-    }
-
-    .cart-item:last-child {
-      border-bottom: none;
+      align-items: center;
+      margin-bottom: 10px;
+      gap: 8px;
+      font-size: 14px;
     }
 
     .cart-item-name {
       font-weight: 600;
+      margin-bottom: 2px;
     }
 
     .cart-item-qty {
-      color: #a5b4fc;
       font-size: 13px;
+      color: #a5b4fc;
+      margin: 0 6px;
     }
 
     .cart-item-price {
@@ -294,60 +297,95 @@
       color: #22d3ee;
     }
 
-    .cart-total {
-      margin-top: 8px;
-      font-weight: 700;
-      text-align: right;
-      color: #22d3ee;
-    }
-
-    .empty-cart {
-      margin-top: 6px;
-      font-size: 13px;
-      color: #9ca3af;
-    }
-
-    /* ---------- BARRE PANIER ---------- */
-    .cart-bar {
-      position: fixed;
-      left: 50%;
-      bottom: 14px;
-      transform: translateX(-50%);
-      width: calc(100% - 32px);
-      max-width: 520px;
-      padding: 10px 16px;
+    .qty-btn {
+      width: 26px;
+      height: 26px;
       border-radius: 999px;
-      background: linear-gradient(135deg, #22c55e, #a855f7);
-      box-shadow:
-        0 0 20px #22c55eaa,
-        0 0 40px #4c1d95aa;
-      color: #020617;
-      font-size: 15px;
-      font-weight: 700;
-      display: flex;
-      justify-content: space-between;
+      border: none;
+      background: #111827;
+      color: #e5e7eb;
+      font-size: 18px;
+      line-height: 1;
+      display: inline-flex;
       align-items: center;
+      justify-content: center;
       cursor: pointer;
-      z-index: 900;
     }
 
-    .cart-bar span {
-      display: block;
+    .qty-btn:active {
+      transform: translateY(1px) scale(0.95);
     }
 
-    .cart-bar-count {
+    .cart-row-left {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .cart-controls {
+      display: flex;
+      align-items: center;
+      margin-top: 2px;
+    }
+
+    #empty-cart-msg {
+      font-size: 14px;
+      color: #9ca3af;
+      margin-bottom: 10px;
+    }
+
+    #cart-total {
+      font-size: 15px;
+      font-weight: 600;
+      margin-top: 4px;
+      margin-bottom: 12px;
+    }
+
+    /* PAIEMENT */
+    .pay-section {
+      border-top: 1px solid #4b5563;
+      padding-top: 10px;
+      margin-top: 6px;
+    }
+
+    .pay-title {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .pay-options {
       font-size: 13px;
-      font-weight: 500;
-      opacity: 0.9;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-bottom: 8px;
+    }
+
+    .pay-options label {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .pay-note {
+      font-size: 11px;
+      color: #9ca3af;
+      margin-top: 2px;
+    }
+
+    @media (min-width: 520px) {
+      body {
+        padding-bottom: 110px;
+      }
     }
   </style>
 </head>
 
 <body>
-  <!-- LOGO -->
+
   <div class="logo">SL</div>
 
-  <!-- TOP BUTTONS -->
   <div class="top-buttons">
     <button class="top-btn" id="btn-miniapp">Mini App Du Lev</button>
     <button class="top-btn" id="btn-reseaux">Réseaux Sociaux</button>
@@ -356,100 +394,140 @@
 
   <!-- CATALOGUE -->
   <div id="catalogue">
-    <!-- Produit 1 -->
-    <div class="product">
+
+    <div class="product" data-name="🎧 Écouteurs Bluetooth" data-price="34.99">
       <div class="product-inner">
         <div class="fake-image"></div>
         <div class="product-name">🎧 Écouteurs Bluetooth</div>
-        <div class="product-desc">
-          Autonomie, basses, réduction de bruit.
-        </div>
+        <div class="product-desc">Autonomie, basses, réduction de bruit.</div>
         <div class="price">34,99 €</div>
         <button class="order-btn">Commander</button>
       </div>
     </div>
 
-    <!-- Produit 2 -->
-    <div class="product">
+    <div class="product" data-name="🔋 Powerbank 20 000 mAh" data-price="29.99">
       <div class="product-inner">
         <div class="fake-image"></div>
         <div class="product-name">🔋 Powerbank 20 000 mAh</div>
-        <div class="product-desc">
-          Recharge rapide USB-C & USB. Parfait pour les longues journées.
-        </div>
+        <div class="product-desc">Recharge rapide USB-C & USB.</div>
         <div class="price">29,99 €</div>
         <button class="order-btn">Commander</button>
       </div>
     </div>
 
-    <!-- Produit 3 : exemple tiramisu -->
-    <div class="product">
+    <div class="product" data-name="🍓 Tiramisu Fraise Framboise" data-price="5.50">
       <div class="product-inner">
         <div class="fake-image"></div>
         <div class="product-name">🍓 Tiramisu Fraise Framboise</div>
-        <div class="product-desc">
-          Frais & fait maison. Edition été Shop Du Lev.
-        </div>
+        <div class="product-desc">Frais & fait maison, édition été.</div>
         <div class="price">5,50 €</div>
+        <button class="order-btn">Commander</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="🍫 Tiramisu Oréo" data-price="5.50">
+      <div class="product-inner">
+        <div class="fake-image"></div>
+        <div class="product-name">🍫 Tiramisu Oréo</div>
+        <div class="product-desc">Crème onctueuse & morceaux d’Oréo.</div>
+        <div class="price">5,50 €</div>
+        <button class="order-btn">Commander</button>
+      </div>
+    </div>
+
+    <div class="product" data-name="📦 Pack Trio Tiramisu" data-price="14.99">
+      <div class="product-inner">
+        <div class="fake-image"></div>
+        <div class="product-name">📦 Pack Trio Tiramisu</div>
+        <div class="product-desc">1 Café Cacao + 1 Fraise Framboise + 1 Passion.</div>
+        <div class="price">14,99 €</div>
         <button class="order-btn">Commander</button>
       </div>
     </div>
   </div>
 
   <!-- BARRE PANIER -->
-  <div class="cart-bar" id="cart-bar">
+  <div id="cart-bar">
     <span>🛒 Panier vide</span>
     <span class="cart-bar-count">0 article – 0,00 €</span>
   </div>
 
-  <!-- POPUP RÉSEAUX SOCIAUX -->
+  <!-- POPUP RÉSEAUX -->
   <div class="overlay" id="overlay-reseaux">
     <div class="modal">
-      <div class="modal-title">Réseaux sociaux</div>
-      <!-- ⚠️ Image dans ton repo -->
-      <img src="reseaux-test.png.PNG" alt="Réseaux sociaux Shop Du Lev" class="social-img" />
-      <button class="close-btn" id="close-reseaux">Fermer</button>
+      <div class="modal-header">Réseaux sociaux</div>
+      <div class="modal-body">
+        <!-- ton image dans le repo -->
+        <img id="reseaux-image" src="reseaux-test.png.PNG" alt="Réseaux sociaux Shop Du Lev" />
+      </div>
+      <div class="modal-actions">
+        <button class="btn-primary" id="close-reseaux">Fermer</button>
+      </div>
     </div>
   </div>
 
-  <!-- POPUP CHOIX QUANTITÉ / AJOUT PANIER -->
+  <!-- POPUP CHOIX QUANTITÉ -->
   <div class="overlay" id="overlay-commande">
     <div class="modal">
-      <div class="modal-title" id="commande-title">Ajouter au panier</div>
-      <div class="modal-body" id="commande-body">
-        <!-- Texte injecté en JS -->
+      <div class="modal-header" id="commande-title">Ajouter au panier</div>
+      <div class="modal-body">
+        <div id="commande-body"></div>
+        <label>
+          Quantité :
+          <input type="number" id="commande-qty" min="1" step="1" value="1" />
+        </label>
       </div>
-      <input
-        type="number"
-        min="1"
-        step="1"
-        value="1"
-        class="qty-input"
-        id="commande-qty"
-      />
-      <div class="modal-note">Entrez la quantité souhaitée puis ajoutez au panier.</div>
-      <button class="primary-btn" id="btn-add-cart">Ajouter au panier</button>
-      <button class="close-btn" id="btn-cancel-commande">Annuler</button>
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btn-cancel-commande">Annuler</button>
+        <button class="btn-primary" id="btn-add-cart">Ajouter au panier</button>
+      </div>
     </div>
   </div>
 
-  <!-- POPUP DÉTAIL PANIER -->
+  <!-- POPUP PANIER -->
   <div class="overlay" id="overlay-panier">
     <div class="modal">
-      <div class="modal-title">Votre panier</div>
-      <div class="cart-list" id="cart-list"></div>
-      <div class="cart-total" id="cart-total"></div>
-      <div class="empty-cart" id="empty-cart-msg">Votre panier est vide.</div>
-      <button class="close-btn" id="btn-close-panier">Fermer</button>
+      <div class="modal-header">Votre panier</div>
+      <div class="modal-body">
+        <div id="empty-cart-msg">Aucun article pour le moment.</div>
+        <div id="cart-list"></div>
+        <div id="cart-total"></div>
+
+        <div class="pay-section">
+          <div class="pay-title">Moyen de paiement</div>
+          <div class="pay-options">
+            <label>
+              <input type="radio" name="pay-method" value="cash" checked />
+              Espèces à la livraison
+            </label>
+            <label>
+              <input type="radio" name="pay-method" value="lydia" />
+              Lydia / virement instantané
+            </label>
+            <label>
+              <input type="radio" name="pay-method" value="paypal" />
+              PayPal
+            </label>
+          </div>
+          <div class="pay-note">
+            Le bouton “Valider la commande” enverra le récap au bot (via Telegram Mini App).  
+            Tu pourras ensuite gérer le paiement directement avec le client.
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button class="btn-secondary" id="btn-close-panier">Fermer</button>
+        <button class="btn-primary" id="btn-submit-order">Valider la commande</button>
+      </div>
     </div>
   </div>
 
   <script>
-    /* --------- BOUTONS DU HAUT --------- */
+    /* --- BOUTONS DU HAUT --- */
     const btnMiniApp = document.getElementById("btn-miniapp");
     const btnReseaux = document.getElementById("btn-reseaux");
     const btnLivraison = document.getElementById("btn-livraison");
-
     const catalogue = document.getElementById("catalogue");
 
     btnMiniApp.addEventListener("click", () => {
@@ -458,14 +536,14 @@
 
     btnLivraison.addEventListener("click", () => {
       alert(
-        "Livraison Shop Du Lev 🚚\\n\\n" +
-        "• Besançon & alentours\\n" +
-        "• Commande par le bot / DM\\n" +
-        "• Paiement à la livraison ou en ligne."
+        "Livraison Shop Du Lev 🚚\n\n" +
+          "• Besançon & alentours\n" +
+          "• Commande via la mini-app ou le bot\n" +
+          "• Paiement : espèces / Lydia / PayPal."
       );
     });
 
-    /* --------- POPUP RÉSEAUX --------- */
+    /* --- POPUP RESEAUX --- */
     const overlayReseaux = document.getElementById("overlay-reseaux");
     const closeReseaux = document.getElementById("close-reseaux");
 
@@ -483,7 +561,7 @@
       }
     });
 
-    /* --------- PANIER --------- */
+    /* --- PANIER --- */
     const cartBar = document.getElementById("cart-bar");
     const overlayCommande = document.getElementById("overlay-commande");
     const overlayPanier = document.getElementById("overlay-panier");
@@ -498,30 +576,21 @@
     const cartTotal = document.getElementById("cart-total");
     const emptyCartMsg = document.getElementById("empty-cart-msg");
     const btnClosePanier = document.getElementById("btn-close-panier");
+    const btnSubmitOrder = document.getElementById("btn-submit-order");
 
     let cart = [];
     let currentProduct = null;
 
-    // Récupération des boutons Commander
+    // Associer les boutons commander
     document.querySelectorAll(".product").forEach((productEl) => {
-      const nameEl = productEl.querySelector(".product-name");
-      const priceEl = productEl.querySelector(".price");
       const btnOrder = productEl.querySelector(".order-btn");
-
-      const name = nameEl.textContent.trim();
-      const price = parsePrice(priceEl.textContent);
+      const name = productEl.dataset.name;
+      const price = parseFloat(productEl.dataset.price);
 
       btnOrder.addEventListener("click", () => {
         openCommandeModal(name, price);
       });
     });
-
-    function parsePrice(text) {
-      // "34,99 €" -> 34.99
-      const clean = text.replace(/[^\d,]/g, "").replace(",", ".");
-      const value = parseFloat(clean);
-      return isNaN(value) ? 0 : value;
-    }
 
     function formatPrice(value) {
       return value.toFixed(2).replace(".", ",") + " €";
@@ -558,7 +627,6 @@
         return;
       }
 
-      // Cherche si produit déjà dans le panier
       const existing = cart.find((item) => item.name === currentProduct.name);
       if (existing) {
         existing.qty += qty;
@@ -591,65 +659,19 @@
         countSpan.textContent = "0 article – 0,00 €";
       } else {
         labelSpan.textContent = "🛒 Voir le panier";
-        const articleWord = totalQty > 1 ? "articles" : "article";
+        const word = totalQty > 1 ? "articles" : "article";
         countSpan.textContent =
-          totalQty + " " + articleWord + " – " + formatPrice(totalPrice);
+          totalQty + " " + word + " – " + formatPrice(totalPrice);
       }
     }
 
-    // Ouverture du détail du panier
+    // Ouvrir / fermer le panier
     cartBar.addEventListener("click", () => {
       openCartModal();
     });
 
     function openCartModal() {
-      cartList.innerHTML = "";
-      let totalQty = 0;
-      let totalPrice = 0;
-
-      if (cart.length === 0) {
-        emptyCartMsg.style.display = "block";
-        cartTotal.textContent = "";
-      } else {
-        emptyCartMsg.style.display = "none";
-
-        cart.forEach((item) => {
-          totalQty += item.qty;
-          totalPrice += item.qty * item.price;
-
-          const row = document.createElement("div");
-          row.className = "cart-item";
-
-          const left = document.createElement("div");
-          const nameSpan = document.createElement("div");
-          nameSpan.className = "cart-item-name";
-          nameSpan.textContent = item.name;
-
-          const qtySpan = document.createElement("div");
-          qtySpan.className = "cart-item-qty";
-          qtySpan.textContent = "Quantité : " + item.qty;
-
-          left.appendChild(nameSpan);
-          left.appendChild(qtySpan);
-
-          const right = document.createElement("div");
-          right.className = "cart-item-price";
-          right.textContent = formatPrice(item.qty * item.price);
-
-          row.appendChild(left);
-          row.appendChild(right);
-
-          cartList.appendChild(row);
-        });
-
-        cartTotal.textContent =
-          "Total (" +
-          totalQty +
-          (totalQty > 1 ? " articles" : " article") +
-          ") : " +
-          formatPrice(totalPrice);
-      }
-
+      renderCart();
       overlayPanier.classList.add("show");
     }
 
@@ -665,8 +687,154 @@
       }
     });
 
-    // Init affichage
-    updateCartBar();
+    // Afficher le contenu du panier avec +/-
+    function renderCart() {
+      cartList.innerHTML = "";
+      let totalQty = 0;
+      let totalPrice = 0;
+
+      if (cart.length === 0) {
+        emptyCartMsg.style.display = "block";
+        cartTotal.textContent = "";
+        return;
+      }
+
+      emptyCartMsg.style.display = "none";
+
+      cart.forEach((item, index) => {
+        totalQty += item.qty;
+        totalPrice += item.qty * item.price;
+
+        const row = document.createElement("div");
+        row.className = "cart-item";
+        row.dataset.index = index;
+
+        const left = document.createElement("div");
+        left.className = "cart-row-left";
+
+        const nameSpan = document.createElement("div");
+        nameSpan.className = "cart-item-name";
+        nameSpan.textContent = item.name;
+
+        const controls = document.createElement("div");
+        controls.className = "cart-controls";
+
+        const minusBtn = document.createElement("button");
+        minusBtn.textContent = "−";
+        minusBtn.className = "qty-btn qty-minus";
+
+        const qtySpan = document.createElement("span");
+        qtySpan.className = "cart-item-qty";
+        qtySpan.textContent = "x" + item.qty;
+
+        const plusBtn = document.createElement("button");
+        plusBtn.textContent = "+";
+        plusBtn.className = "qty-btn qty-plus";
+
+        controls.appendChild(minusBtn);
+        controls.appendChild(qtySpan);
+        controls.appendChild(plusBtn);
+
+        left.appendChild(nameSpan);
+        left.appendChild(controls);
+
+        const right = document.createElement("div");
+        right.className = "cart-item-price";
+        right.textContent = formatPrice(item.qty * item.price);
+
+        row.appendChild(left);
+        row.appendChild(right);
+
+        cartList.appendChild(row);
+      });
+
+      cartTotal.textContent =
+        "Total (" +
+        totalQty +
+        (totalQty > 1 ? " articles" : " article") +
+        ") : " +
+        formatPrice(totalPrice);
+    }
+
+    // Gérer les boutons +/- avec délégation
+    cartList.addEventListener("click", (e) => {
+      const isMinus = e.target.classList.contains("qty-minus");
+      const isPlus = e.target.classList.contains("qty-plus");
+      if (!isMinus && !isPlus) return;
+
+      const row = e.target.closest(".cart-item");
+      if (!row) return;
+
+      const index = parseInt(row.dataset.index, 10);
+      if (isNaN(index)) return;
+
+      const item = cart[index];
+      if (!item) return;
+
+      if (isPlus) {
+        item.qty += 1;
+      } else if (isMinus) {
+        item.qty -= 1;
+        if (item.qty <= 0) {
+          cart.splice(index, 1);
+        }
+      }
+
+      updateCartBar();
+      renderCart();
+    });
+
+    // Validation / envoi de commande
+    btnSubmitOrder.addEventListener("click", () => {
+      if (cart.length === 0) {
+        alert("Ton panier est vide.");
+        return;
+      }
+
+      const payInput = document.querySelector('input[name="pay-method"]:checked');
+      const payMethod = payInput ? payInput.value : "cash";
+
+      let totalQty = 0;
+      let totalPrice = 0;
+      let lines = [];
+
+      cart.forEach((item) => {
+        totalQty += item.qty;
+        totalPrice += item.qty * item.price;
+        lines.push("• " + item.name + " x" + item.qty + " = " + formatPrice(item.qty * item.price));
+      });
+
+      let payText = "";
+      if (payMethod === "cash") payText = "Espèces à la livraison";
+      if (payMethod === "lydia") payText = "Lydia / virement instantané";
+      if (payMethod === "paypal") payText = "PayPal";
+
+      const summary =
+        "🛒 Nouvelle commande Shop Du Lev\n\n" +
+        lines.join("\n") +
+        "\n\nTotal : " +
+        formatPrice(totalPrice) +
+        "\nArticles : " +
+        totalQty +
+        "\nPaiement : " +
+        payText;
+
+      // Envoi au bot via Telegram WebApp si disponible
+      try {
+        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.sendData) {
+          window.Telegram.WebApp.sendData(summary);
+          alert("Commande envoyée au bot ✅");
+        } else {
+          // Fallback si on est juste dans le navigateur
+          alert(summary);
+        }
+      } catch (err) {
+        console.error(err);
+        alert("Erreur lors de l’envoi de la commande.");
+      }
+
+      closeCartModal();
+    });
   </script>
 </body>
 </html>
