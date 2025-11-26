@@ -3,77 +3,115 @@
 <head>
 <meta charset="UTF-8" />
 <title>Shop Du Lev – Catalogue</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
-    body {
-        margin: 0;
-        padding: 20px;
-        background: radial-gradient(circle,#1d0033,#000);
-        font-family: Arial, sans-serif;
-        color: #fff;
-        text-align: center;
-    }
+  body {
+    margin: 0;
+    padding: 20px 10px 40px;
+    background: radial-gradient(circle at top,#1d0033,#000);
+    font-family: -apple-system, system-ui, sans-serif;
+    color: #fff;
+    text-align: center;
+  }
 
-    /* LOGO */
-    .logo {
-        width: 90px;
-        height: 90px;
-        border-radius: 50%;
-        margin: 10px auto 30px;
-        background: linear-gradient(145deg,#00ffd9,#25004f);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-size: 28px;
-        font-weight: bold;
-        box-shadow: 0 0 20px #00ffd9;
-    }
+  .logo {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: 5px auto 20px;
+    background: radial-gradient(circle at 30% 10%,#ffffff,#00ffd9 35%,#220066 80%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 26px;
+    font-weight: 700;
+    box-shadow: 0 0 24px #00ffd9;
+  }
 
-    /* BOUTONS PRODUITS */
-    .btn {
-        width: 85%;
-        margin: 15px auto;
-        padding: 18px;
-        font-size: 18px;
-        border-radius: 12px;
-        border: none;
-        background: rgba(80,0,150,0.35);
-        color: #fff;
-        backdrop-filter: blur(6px);
-        text-shadow: 0 0 6px #c084ff;
-        box-shadow: 0 0 18px #5a00ff inset, 0 0 12px #c084ff;
-        transition: 0.25s;
-    }
+  .top-buttons {
+    width: 100%;
+    max-width: 480px;
+    margin: 0 auto 20px;
+  }
 
-    .btn:hover {
-        transform: scale(1.04);
-        box-shadow: 0 0 25px #8b5cf6 inset, 0 0 18px #d8b4fe;
-    }
+  .top-btn {
+    width: 100%;
+    margin: 8px 0;
+    padding: 14px;
+    font-size: 16px;
+    border-radius: 12px;
+    border: none;
+    background: rgba(90, 0, 180, 0.55);
+    color: #fff;
+    text-shadow: 0 0 6px #e9d5ff;
+    box-shadow: 0 0 20px #8b5cf6, 0 0 12px #a855f7 inset;
+  }
 
-    /* PRODUIT */
-    .product {
-        width: 90%;
-        margin: 25px auto;
-        padding: 20px;
-        background: rgba(40,0,70,0.4);
-        border-radius: 18px;
-        box-shadow: 0 0 20px #7e22ce;
-    }
+  .product {
+    width: 100%;
+    max-width: 480px;
+    margin: 16px auto;
+    padding: 18px 16px 14px;
+    border-radius: 18px;
+    background: rgba(40, 0, 75, 0.7);
+    box-shadow: 0 0 26px #7e22ce;
+    position: relative;
+    overflow: hidden;
+  }
 
-    .product img {
-        width: 100%;
-        border-radius: 12px;
-        margin-bottom: 12px;
-        box-shadow: 0 0 15px #a855f7;
-    }
+  .product::before {
+    content: "";
+    position: absolute;
+    inset: -40%;
+    background: radial-gradient(circle at top,#a855f7,transparent 60%);
+    opacity: .35;
+    pointer-events: none;
+  }
 
-    .price {
-        font-size: 20px;
-        margin-top: 10px;
-        color: #00eaff;
-        font-weight: bold;
-        text-shadow: 0 0 10px #00eaff;
-    }
+  .product-inner {
+    position: relative;
+    z-index: 1;
+  }
+
+  .fake-image {
+    width: 100%;
+    height: 130px;
+    border-radius: 14px;
+    margin-bottom: 10px;
+    background: radial-gradient(circle at 20% 20%,#f97316,#581c87 40%,#020617 80%);
+    box-shadow: 0 0 18px #f97316aa;
+  }
+
+  .product-name {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+
+  .product-desc {
+    font-size: 13px;
+    color: #c4b5fd;
+    margin-bottom: 10px;
+  }
+
+  .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #22d3ee;
+    text-shadow: 0 0 8px #22d3ee;
+  }
+
+  .order-btn {
+    margin-top: 10px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    border: none;
+    background: linear-gradient(135deg,#22d3ee,#a855f7);
+    color: #020617;
+    font-size: 14px;
+    font-weight: 700;
+    box-shadow: 0 0 16px #22d3ee;
+  }
 </style>
 </head>
 
@@ -81,39 +119,40 @@
 
 <div class="logo">SL</div>
 
-<button class="btn">Mini App Du Lev</button>
-<button class="btn">Réseaux Sociaux</button>
-<button class="btn">Livraison 🚚</button>
-
-<!-- PRODUITS -->
-<div class="product">
-    <img src="https://i.imgur.com/FvNqVpk.jpeg">
-    <h2>Écouteurs Bluetooth</h2>
-    <p class="price">34.99 €</p>
+<div class="top-buttons">
+  <button class="top-btn">Mini App Du Lev</button>
+  <button class="top-btn">Réseaux Sociaux</button>
+  <button class="top-btn">Livraison 🚚</button>
 </div>
 
 <div class="product">
-    <img src="https://i.imgur.com/0dE0b09.jpeg">
-    <h2>Powerbank 20 000 mAh</h2>
-    <p class="price">29.99 €</p>
+  <div class="product-inner">
+    <div class="fake-image"></div>
+    <div class="product-name">🎧 Écouteurs Bluetooth</div>
+    <div class="product-desc">Autonomie, basses, réduction de bruit.</div>
+    <div class="price">34,99 €</div>
+    <button class="order-btn">Commander</button>
+  </div>
 </div>
 
 <div class="product">
-    <img src="https://i.imgur.com/ZgRv0qZ.jpeg">
-    <h2>Tiramisu Fraise Framboise</h2>
-    <p class="price">5.50 €</p>
+  <div class="product-inner">
+    <div class="fake-image"></div>
+    <div class="product-name">🔋 Powerbank 20 000 mAh</div>
+    <div class="product-desc">Recharge rapide USB-C & USB.</div>
+    <div class="price">29,99 €</div>
+    <button class="order-btn">Commander</button>
+  </div>
 </div>
 
 <div class="product">
-    <img src="https://i.imgur.com/w9Qq2Qp.jpeg">
-    <h2>Tiramisu Oréo</h2>
-    <p class="price">5.50 €</p>
-</div>
-
-<div class="product">
-    <img src="https://i.imgur.com/yqZ5X5u.jpeg">
-    <h2>Pack Trio Tiramisu</h2>
-    <p class="price">14.99 €</p>
+  <div class="product-inner">
+    <div class="fake-image"></div>
+    <div class="product-name">🍓 Tiramisu Fraise Framboise</div>
+    <div class="product-desc">Frais & fait maison.</div>
+    <div class="price">5,50 €</div>
+    <button class="order-btn">Commander</button>
+  </div>
 </div>
 
 </body>
