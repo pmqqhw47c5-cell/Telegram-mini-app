@@ -3,38 +3,41 @@
 <head>
 <meta charset="UTF-8" />
 <title>Shop Du Lev – Catalogue</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
 <style>
-  body {
+body {
     margin: 0;
     padding: 20px 10px 40px;
-    background: radial-gradient(circle at top,#1d0033,#000);
+    background: radial-gradient(circle at top,#080010,#000);
     font-family: -apple-system, system-ui, sans-serif;
     color: #fff;
     text-align: center;
-  }
+}
 
-  .logo {
+/* LOGO */
+.logo {
     width: 80px;
     height: 80px;
     border-radius: 50%;
     margin: 5px auto 20px;
-    background: radial-gradient(circle at 30% 10%,#ffffff,#00ffd9 35%,#220066 80%);
+    background: radial-gradient(circle at 30% 30%, #00ffd9, #0066ff);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 26px;
     font-weight: 700;
     box-shadow: 0 0 24px #00ffd9;
-  }
+}
 
-  .top-buttons {
+/* BOUTONS TOP */
+.top-buttons {
     width: 100%;
     max-width: 480px;
     margin: 0 auto 20px;
-  }
+}
 
-  .top-btn {
+.top-btn {
     width: 100%;
     margin: 8px 0;
     padding: 14px;
@@ -44,10 +47,11 @@
     background: rgba(90, 0, 180, 0.55);
     color: #fff;
     text-shadow: 0 0 6px #e9d5ff;
-    box-shadow: 0 0 20px #8b5cf6, 0 0 12px #a855f7 inset;
-  }
+    box-shadow: 0 0 20px #8b5cff, 0 0 12px #a85cff;
+}
 
-  .product {
+/* PRODUIT CARD */
+.product {
     width: 100%;
     max-width: 480px;
     margin: 16px auto;
@@ -57,61 +61,74 @@
     box-shadow: 0 0 26px #7e22ce;
     position: relative;
     overflow: hidden;
-  }
+}
 
-  .product::before {
+.product::before {
     content: "";
     position: absolute;
     inset: -40%;
-    background: radial-gradient(circle at top,#a855f7,transparent 60%);
+    background: radial-gradient(circle at top,#ff00ff22,#0000);
     opacity: .35;
     pointer-events: none;
-  }
+}
 
-  .product-inner {
+.product-inner {
     position: relative;
     z-index: 1;
-  }
+}
 
-  .fake-image {
+.fake-image {
     width: 100%;
     height: 130px;
     border-radius: 14px;
     margin-bottom: 10px;
-    background: radial-gradient(circle at 20% 20%,#f97316,#581c87 40%,#020617 80%);
+    background: radial-gradient(circle at 20% 20%, #f97316aa, #000);
     box-shadow: 0 0 18px #f97316aa;
-  }
+}
 
-  .product-name {
+.product-name {
     font-size: 18px;
     font-weight: 600;
     margin-bottom: 6px;
-  }
+}
 
-  .product-desc {
+.product-desc {
     font-size: 13px;
     color: #c4b5fd;
     margin-bottom: 10px;
-  }
+}
 
-  .price {
+.price {
     font-size: 18px;
     font-weight: 700;
     color: #22d3ee;
     text-shadow: 0 0 8px #22d3ee;
-  }
+}
 
-  .order-btn {
+.order-btn {
     margin-top: 10px;
     padding: 10px 14px;
     border-radius: 999px;
     border: none;
-    background: linear-gradient(135deg,#22d3ee,#a855f7);
+    background: linear-gradient(135deg,#22d3ee,#8b5cff);
     color: #020617;
     font-size: 14px;
     font-weight: 700;
     box-shadow: 0 0 16px #22d3ee;
-  }
+}
+
+/* SECTION RÉSEAUX */
+#reseaux-section {
+    display: none;
+    margin-top: 20px;
+}
+
+#reseaux-section img {
+    width: 100%;
+    max-width: 480px;
+    border-radius: 18px;
+    box-shadow: 0 0 30px #8b5cff;
+}
 </style>
 </head>
 
@@ -120,67 +137,59 @@
 <div class="logo">SL</div>
 
 <div class="top-buttons">
-  <button class="top-btn">Mini App Du Lev</button>
-  <button class="top-btn">Réseaux Sociaux</button>
-  <button class="top-btn">Livraison 🚚</button>
-</div><div id="reseaux-section" style="display:none; margin-top:20px;">
-    <img src="https://i.ibb.co/0ymQk8C/reseaux-test.png" 
-         style="width:100%; border-radius:18px; box-shadow:0 0 25px #8b5cff;" />
-</div>
-  <<div id="reseaux-section" style="display:none; margin-top:20px;">
-    <img src="https://i.imgur.com/3pL8y8i.png"
-         style="width:100%; border-radius:18px; box-shadow:0 0 25px #8b5cff;" />
-</div>>
-</div>
-<div class="product">
-  <div class="product-inner">
-    <div class="fake-image"></div>
-    <div class="product-name">🎧 Écouteurs Bluetooth</div>
-    <div class="product-desc">Autonomie, basses, réduction de bruit.</div>
-    <div class="price">34,99 €</div>
-    <button class="order-btn">Commander</button>
-  </div>
+    <button class="top-btn" id="btn-home">Mini App Du Lev</button>
+    <button class="top-btn" id="btn-reseaux">Réseaux Sociaux</button>
+    <button class="top-btn" id="btn-livraison">Livraison 🚛</button>
 </div>
 
-<div class="product">
-  <div class="product-inner">
-    <div class="fake-image"></div>
-    <div class="product-name">🔋 Powerbank 20 000 mAh</div>
-    <div class="product-desc">Recharge rapide USB-C & USB.</div>
-    <div class="price">29,99 €</div>
-    <button class="order-btn">Commander</button>
-  </div>
+<!-- SECTION RÉSEAUX -->
+<div id="reseaux-section">
+    <img src="https://i.imgur.com/3pL8y8i.png" alt="Réseaux sociaux">
 </div>
 
-<div class="product">
-  <div class="product-inner">
-    <div class="fake-image"></div>
-    <div class="product-name">🍓 Tiramisu Fraise Framboise</div>
-    <div class="product-desc">Frais & fait maison.</div>
-    <div class="price">5,50 €</div>
-    <button class="order-btn">Commander</button>
-  </div>
+<!-- PRODUITS -->
+<div id="products">
+
+    <div class="product">
+        <div class="product-inner">
+            <div class="fake-image"></div>
+            <div class="product-name">🎧 Écouteurs Bluetooth</div>
+            <div class="product-desc">Autonomie, basses, réduction de bruit.</div>
+            <div class="price">34,99 €</div>
+            <button class="order-btn">Commander</button>
+        </div>
+    </div>
+
+    <div class="product">
+        <div class="product-inner">
+            <div class="fake-image"></div>
+            <div class="product-name">🔋 Powerbank 20 000 mAh</div>
+            <div class="product-desc">Recharge rapide USB-C & USB.</div>
+            <div class="price">29,99 €</div>
+            <button class="order-btn">Commander</button>
+        </div>
+    </div>
+
 </div>
+
 <script>
-document.querySelectorAll(".top-btn")[1].onclick = function () {
-    const section = document.getElementById("social-section");
-    section.style.display = section.style.display === "none" ? "block" : "none";
-    section.scrollIntoView({ behavior: "smooth" });
+// Bouton Réseaux → Affiche image + cache produits
+document.getElementById("btn-reseaux").onclick = function () {
+    document.getElementById("reseaux-section").style.display = "block";
+    document.getElementById("products").style.display = "none";
+};
+
+// Bouton Home → Réaffiche produits
+document.getElementById("btn-home").onclick = function () {
+    document.getElementById("reseaux-section").style.display = "none";
+    document.getElementById("products").style.display = "block";
+};
+
+// Bouton Livraison (exemple simple)
+document.getElementById("btn-livraison").onclick = function () {
+    alert("Livraison disponible à Besançon 🚚");
 };
 </script>
-<script>
-document.querySelectorAll(".top-btn")[1].addEventListener("click", function () {
-    document.getElementById("reseaux-section").style.display = "block";
-});
-</script><script>
-document.querySelectorAll(".top-btn")[1].addEventListener("click", function () {
-    document.getElementById("reseaux-section").style.display = "block";
 
-    // cache les produits
-    document.querySelectorAll(".product").forEach(p => p.style.display = "none");
-});
-</script>
-</body>
-</html>
 </body>
 </html>
