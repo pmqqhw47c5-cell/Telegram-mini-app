@@ -2,32 +2,35 @@
 <html>
 <head>
 <meta charset="UTF-8" />
-<title>Shop Du Lev – Catalogue</title>
-<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Shop Du Lev — Catalogue</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <style>
     body {
         margin: 0;
         padding: 20px 10px 40px;
-        background: radial-gradient(circle at top,#0a0517,#06020c);
+        background: radial-gradient(circle at top,#0b0018,#000);
         font-family: -apple-system, system-ui, sans-serif;
         color: #fff;
         text-align: center;
     }
 
+    /* --- LOGO --- */
     .logo {
-        width: 80px;
-        height: 80px;
+        width: 90px;
+        height: 90px;
         border-radius: 50%;
-        margin: 5px auto 20px;
-        background: radial-gradient(circle at 30% 30%, #03f5ff, #0059ff);
+        margin: 10px auto 30px;
+        background: radial-gradient(circle at 30% 30%, #00ffd9, #0050ff);
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 26px;
+        font-size: 30px;
         font-weight: 700;
-        box-shadow: 0 0 24px #00ffd9;
+        box-shadow: 0 0 24px #00ffd9aa;
     }
 
+    /* --- TOP BUTTONS --- */
     .top-buttons {
         width: 100%;
         max-width: 480px;
@@ -36,46 +39,84 @@
 
     .top-btn {
         width: 100%;
-        margin: 8px 0;
-        padding: 14px;
-        font-size: 16px;
+        margin: 10px 0;
+        padding: 16px;
+        font-size: 18px;
         border-radius: 12px;
         border: none;
         background: rgba(90, 0, 180, 0.55);
         color: #fff;
         text-shadow: 0 0 6px #e9d5ff;
-        box-shadow: 0 0 20px #8b5cf6, 0 0 12px #a855f7;
+        box-shadow: 0 0 20px #8b5cf6aa;
     }
 
-    .social-img {
-        width: 90%;
-        max-width: 450px;
-        border-radius: 16px;
-        margin: 20px auto;
+    /* --- POPUP --- */
+    .popup-bg {
         display: none;
-        box-shadow: 0 0 30px #9b4dff;
+        position: fixed;
+        inset: 0;
+        background: rgba(0,0,0,0.8);
+        backdrop-filter: blur(8px);
+        justify-content: center;
+        align-items: center;
+        z-index: 999;
+    }
+
+    .popup-box {
+        background: #12001f;
+        padding: 12px;
+        border-radius: 20px;
+        width: 90%;
+        max-width: 380px;
+        box-shadow: 0 0 25px #9a00ff;
+        border: 2px solid #8a2be2;
+    }
+
+    .popup-box img {
+        width: 100%;
+        border-radius: 16px;
+        box-shadow: 0 0 20px #bb29ff;
+    }
+
+    .close-btn {
+        margin-top: 15px;
+        padding: 10px 16px;
+        background: #ff006a;
+        border: none;
+        border-radius: 12px;
+        font-size: 16px;
+        color: #fff;
+        box-shadow: 0 0 12px #ff006a;
     }
 </style>
-</head>
 
+</head>
 <body>
 
+<!-- LOGO -->
 <div class="logo">SL</div>
 
+<!-- TOP BUTTONS -->
 <div class="top-buttons">
     <button class="top-btn">Mini App Du Lev</button>
-    <button class="top-btn" onclick="showSocial()">Réseaux Sociaux</button>
-    <button class="top-btn">Livraison 🚚</button>
+    <button class="top-btn" onclick="openPopup()">Réseaux Sociaux</button>
+    <button class="top-btn">Livraison 🚛</button>
 </div>
 
-<!-- IMAGE RÉSEAUX SOCIAUX -->
-<img id="socialSection" class="social-img" 
-     src="./BC7A32A9-6EB4-4C2A-BA6C-41C352940323.png"
-     alt="Réseaux sociaux">
+<!-- POPUP -->
+<div class="popup-bg" id="popup">
+    <div class="popup-box">
+        <img src="https://i.ibb.co/9pnfHkT/Reseaux-Test.png" alt="Reseaux Test">
+        <button class="close-btn" onclick="closePopup()">Fermer</button>
+    </div>
+</div>
 
 <script>
-function showSocial() {
-    document.getElementById("socialSection").style.display = "block";
+function openPopup() {
+    document.getElementById('popup').style.display = "flex";
+}
+function closePopup() {
+    document.getElementById('popup').style.display = "none";
 }
 </script>
 
