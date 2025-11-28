@@ -1,840 +1,480 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <title>Shop Du Lev – Catalogue</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta charset="UTF-8">
+    <title>Mini App Luxe</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      box-sizing: border-box;
-      -webkit-tap-highlight-color: transparent;
-    }
+    <!-- STYLE LUXE -->
+    <style>
+        :root {
+            --bg: #050507;
+            --bg-gradient: radial-gradient(circle at top, #1b1b20 0, #050507 55%, #000 100%);
+            --card-bg: rgba(10, 10, 14, 0.96);
+            --border-soft: rgba(255, 255, 255, 0.08);
+            --border-strong: rgba(242, 211, 138, 0.4);
+            --gold: #f2d38a;
+            --gold-soft: rgba(242, 211, 138, 0.08);
+            --gold-strong: #d6b25b;
+            --text-main: #f9f9f9;
+            --text-muted: #9b9b9b;
+            --danger: #ef4444;
+            --radius-lg: 20px;
+            --radius-pill: 999px;
+            --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.85);
+        }
 
-    body {
-      margin: 0;
-      padding: 20px 10px 90px;
-      background: radial-gradient(circle at top, #1b0033 0, #050012 60%, #020008 100%);
-      font-family: -apple-system, system-ui, sans-serif;
-      color: #fff;
-      text-align: center;
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    /* Logo rond SL */
-    .logo {
-      width: 90px;
-      height: 90px;
-      border-radius: 50%;
-      margin: 0 auto 24px;
-      background: radial-gradient(circle at 30% 0, #00ffd9, #0080ff, #001233);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 30px;
-      font-weight: 700;
-      box-shadow: 0 0 30px #00ffd980;
-    }
+        html, body {
+            height: 100%;
+        }
 
-    /* Boutons du haut */
-    .top-buttons {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto 20px;
-    }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
+            background: var(--bg-gradient);
+            color: var(--text-main);
+            display: flex;
+            justify-content: center;
+            align-items: stretch;
+        }
 
-    .top-btn {
-      width: 100%;
-      margin: 8px 0;
-      padding: 14px 16px;
-      font-size: 18px;
-      border-radius: 14px;
-      border: none;
-      background: rgba(120, 0, 255, 0.8);
-      color: #fff;
-      font-weight: 600;
-      text-shadow: 0 0 6px #e9d0ff;
-      box-shadow: 0 0 18px #9b3dff, 0 0 8px #2b004b inset;
-      cursor: pointer;
-    }
+        .app {
+            width: 100%;
+            max-width: 480px;
+            margin: 0 auto;
+            padding: 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    .top-btn:active {
-      transform: translateY(1px) scale(0.99);
-      box-shadow: 0 0 8px #9b3dff;
-    }
+        /* HEADER */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+        }
 
-    /* PRODUITS */
-    #catalogue {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-    }
+        .header-left {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-    .product {
-      width: 100%;
-      margin: 18px auto;
-      padding: 18px 14px 16px;
-      border-radius: 20px;
-      background: rgba(55, 0, 90, 0.85);
-      box-shadow: 0 0 26px #7e22ce, 0 0 40px #2b004b inset;
-      position: relative;
-      overflow: hidden;
-    }
+        .app-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+        }
 
-    .product::before {
-      content: "";
-      position: absolute;
-      inset: -50%;
-      background: radial-gradient(circle at top, #ff7af5, transparent 60%),
-                  radial-gradient(circle at bottom, #00ffd9, transparent 55%);
-      opacity: 0.25;
-      pointer-events: none;
-    }
+        .app-subtitle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
 
-    .product-inner {
-      position: relative;
-      z-index: 1;
-    }
+        .pill-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 6px 10px;
+            border-radius: var(--radius-pill);
+            border: 1px solid var(--border-strong);
+            background: linear-gradient(135deg, rgba(15, 15, 17, 0.95), rgba(50, 37, 13, 0.9));
+            font-size: 0.7rem;
+            letter-spacing: 0.16em;
+            text-transform: uppercase;
+        }
 
-    .fake-image {
-      width: 100%;
-      height: 130px;
-      border-radius: 16px;
-      margin-bottom: 14px;
-      background: radial-gradient(circle at 20% 0, #ffb347, transparent 60%),
-                  linear-gradient(120deg, #ff7a18, #0b0020 65%);
-      box-shadow: 0 0 20px #f97316aa;
-    }
+        .pill-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 999px;
+            background: var(--gold);
+            box-shadow: 0 0 0 5px var(--gold-soft);
+        }
 
-    .product-name {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 6px;
-    }
+        /* CARTE PRINCIPALE */
+        .card-main {
+            border-radius: var(--radius-lg);
+            background: var(--card-bg);
+            border: 1px solid var(--border-soft);
+            box-shadow: var(--shadow-soft);
+            padding: 16px 14px 14px;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+        }
 
-    .product-desc {
-      font-size: 14px;
-      color: #d5cfff;
-      margin-bottom: 10px;
-    }
+        .card-main::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 120% -20%, rgba(242, 211, 138, 0.22), transparent 55%);
+            opacity: 0.8;
+            pointer-events: none;
+        }
 
-    .price {
-      font-size: 20px;
-      font-weight: 700;
-      color: #22d3ee;
-      text-shadow: 0 0 8px #22d3ee;
-    }
+        .card-inner {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
 
-    .order-btn {
-      margin-top: 12px;
-      padding: 10px 24px;
-      border-radius: 999px;
-      border: none;
-      background: linear-gradient(135deg, #22d3ee, #a855f7);
-      color: #020617;
-      font-size: 16px;
-      font-weight: 700;
-      box-shadow: 0 0 16px #22d3ee;
-      cursor: pointer;
-    }
+        .user-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
 
-    .order-btn:active {
-      transform: translateY(1px) scale(0.98);
-      box-shadow: 0 0 6px #22d3ee;
-    }
+        .avatar {
+            width: 44px;
+            height: 44px;
+            border-radius: 16px;
+            background: radial-gradient(circle at 30% 0, #ffffff 0, #f2d38a 18%, #1b1b1b 55%, #000 100%);
+            border: 1px solid var(--border-strong);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: #111;
+        }
 
-    /* BARRE PANIER EN BAS */
-    #cart-bar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      padding: 10px 16px 14px;
-      background: radial-gradient(circle at top, #7c3aed, #020012 80%);
-      box-shadow: 0 -4px 22px #4c1d95;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      max-width: 520px;
-      margin: 0 auto;
-      border-radius: 18px 18px 0 0;
-      cursor: pointer;
-      z-index: 30;
-    }
+        .user-texts {
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
 
-    #cart-bar span:first-child {
-      font-weight: 600;
-      font-size: 15px;
-    }
+        .user-name {
+            font-size: 0.98rem;
+            font-weight: 500;
+        }
 
-    .cart-bar-count {
-      font-size: 14px;
-      color: #c4b5fd;
-    }
+        .user-handle {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+        }
 
-    /* OVERLAY GÉNÉRIQUE */
-    .overlay {
-      position: fixed;
-      inset: 0;
-      background: rgba(0, 0, 0, 0.78);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 40;
-      padding: 20px 10px;
-    }
+        .badge-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-top: 4px;
+        }
 
-    .overlay.show {
-      display: flex;
-    }
+        .badge {
+            border-radius: var(--radius-pill);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 4px 9px;
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            background: rgba(15, 15, 18, 0.9);
+        }
 
-    .modal {
-      width: 100%;
-      max-width: 480px;
-      background: #0b0015;
-      border-radius: 24px;
-      padding: 18px 16px 20px;
-      border: 2px solid #a855f7;
-      box-shadow: 0 0 26px #a855f7, 0 0 50px #22d3ee55;
-      text-align: left;
-    }
+        .badge.gold {
+            color: var(--gold);
+            border-color: rgba(242, 211, 138, 0.5);
+            background: linear-gradient(135deg, rgba(242, 211, 138, 0.1), rgba(0, 0, 0, 0.7));
+        }
 
-    .modal-header {
-      font-size: 18px;
-      font-weight: 700;
-      margin-bottom: 12px;
-    }
+        /* LIGNE STATS */
+        .stats-row {
+            display: flex;
+            gap: 8px;
+        }
 
-    .modal-body {
-      font-size: 15px;
-      margin-bottom: 14px;
-    }
+        .stat-card {
+            flex: 1;
+            border-radius: 14px;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 8px 9px;
+            background: radial-gradient(circle at top left, rgba(242, 211, 138, 0.17), rgba(12, 12, 16, 0.96));
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
 
-    .modal-actions {
-      margin-top: 18px;
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
+        .stat-label {
+            font-size: 0.68rem;
+            text-transform: uppercase;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
+        }
 
-    .btn-primary,
-    .btn-secondary {
-      flex: 1;
-      padding: 10px 14px;
-      border-radius: 999px;
-      border: none;
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-    }
+        .stat-value {
+            font-size: 0.96rem;
+            font-weight: 600;
+        }
 
-    .btn-primary {
-      background: linear-gradient(135deg, #22d3ee, #a855f7);
-      color: #020617;
-      box-shadow: 0 0 14px #22d3ee;
-    }
+        .stat-sub {
+            font-size: 0.72rem;
+            color: var(--text-muted);
+        }
 
-    .btn-secondary {
-      background: #111827;
-      color: #e5e7eb;
-      border: 1px solid #4b5563;
-    }
+        /* ACTIONS */
+        .actions {
+            display: flex;
+            flex-direction: column;
+            gap: 7px;
+            margin-top: 4px;
+        }
 
-    .btn-primary:active,
-    .btn-secondary:active {
-      transform: translateY(1px) scale(0.98);
-    }
+        .btn-primary,
+        .btn-secondary,
+        .btn-ghost {
+            width: 100%;
+            border-radius: var(--radius-pill);
+            padding: 10px 14px;
+            border: none;
+            font-size: 0.9rem;
+            font-weight: 500;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
+        }
 
-    /* POPUP RÉSEAUX */
-    #reseaux-image {
-      width: 100%;
-      border-radius: 18px;
-      display: block;
-    }
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold), var(--gold-strong));
+            color: #111;
+            box-shadow: 0 14px 35px rgba(242, 211, 138, 0.35);
+        }
 
-    /* MODAL COMMANDE */
-    #commande-qty {
-      width: 90px;
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: 1px solid #4b5563;
-      background: #020617;
-      color: #e5e7eb;
-      font-size: 15px;
-      text-align: center;
-      margin-top: 4px;
-    }
+        .btn-primary:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 18px 40px rgba(242, 211, 138, 0.5);
+        }
 
-    /* PANIER LISTE */
-    #cart-list {
-      max-height: 260px;
-      overflow-y: auto;
-      margin-bottom: 10px;
-      padding-right: 4px;
-    }
+        .btn-secondary {
+            background: rgba(18, 18, 22, 0.95);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: var(--text-main);
+        }
 
-    .cart-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 10px;
-      gap: 8px;
-      font-size: 14px;
-    }
+        .btn-secondary:hover {
+            background: rgba(25, 25, 30, 0.98);
+            transform: translateY(-1px);
+        }
 
-    .cart-item-name {
-      font-weight: 600;
-      margin-bottom: 2px;
-    }
+        .btn-ghost {
+            background: transparent;
+            border: none;
+            color: var(--text-muted);
+            font-size: 0.82rem;
+        }
 
-    .cart-item-qty {
-      font-size: 13px;
-      color: #a5b4fc;
-      margin: 0 6px;
-    }
+        .btn-ghost:hover {
+            opacity: 0.8;
+        }
 
-    .cart-item-price {
-      font-weight: 600;
-      color: #22d3ee;
-    }
+        .btn-icon {
+            font-size: 1.05rem;
+        }
 
-    .qty-btn {
-      width: 26px;
-      height: 26px;
-      border-radius: 999px;
-      border: none;
-      background: #111827;
-      color: #e5e7eb;
-      font-size: 18px;
-      line-height: 1;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-    }
+        /* FOOTER / BOTTOM */
+        .footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 4px;
+        }
 
-    .qty-btn:active {
-      transform: translateY(1px) scale(0.95);
-    }
+        .footer-text {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+        }
 
-    .cart-row-left {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
+        .brand {
+            font-size: 0.78rem;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--gold);
+        }
 
-    .cart-controls {
-      display: flex;
-      align-items: center;
-      margin-top: 2px;
-    }
+        .danger {
+            color: var(--danger);
+        }
 
-    #empty-cart-msg {
-      font-size: 14px;
-      color: #9ca3af;
-      margin-bottom: 10px;
-    }
-
-    #cart-total {
-      font-size: 15px;
-      font-weight: 600;
-      margin-top: 4px;
-      margin-bottom: 12px;
-    }
-
-    /* PAIEMENT */
-    .pay-section {
-      border-top: 1px solid #4b5563;
-      padding-top: 10px;
-      margin-top: 6px;
-    }
-
-    .pay-title {
-      font-size: 14px;
-      font-weight: 600;
-      margin-bottom: 6px;
-    }
-
-    .pay-options {
-      font-size: 13px;
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      margin-bottom: 8px;
-    }
-
-    .pay-options label {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .pay-note {
-      font-size: 11px;
-      color: #9ca3af;
-      margin-top: 2px;
-    }
-
-    @media (min-width: 520px) {
-      body {
-        padding-bottom: 110px;
-      }
-    }
-  </style>
+    </style>
 </head>
-
 <body>
 
-  <div class="logo">SL</div>
-
-  <div class="top-buttons">
-    <button class="top-btn" id="btn-miniapp">Mini App Du Lev</button>
-    <button class="top-btn" id="btn-reseaux">Réseaux Sociaux</button>
-    <button class="top-btn" id="btn-livraison">Livraison 🚚</button>
-  </div>
-
-  <!-- CATALOGUE -->
-  <div id="catalogue">
-
-    <div class="product" data-name="🎧 Écouteurs Bluetooth" data-price="34.99">
-      <div class="product-inner">
-        <div class="fake-image"></div>
-        <div class="product-name">🎧 Écouteurs Bluetooth</div>
-        <div class="product-desc">Autonomie, basses, réduction de bruit.</div>
-        <div class="price">34,99 €</div>
-        <button class="order-btn">Commander</button>
-      </div>
-    </div>
-
-    <div class="product" data-name="🔋 Powerbank 20 000 mAh" data-price="29.99">
-      <div class="product-inner">
-        <div class="fake-image"></div>
-        <div class="product-name">🔋 Powerbank 20 000 mAh</div>
-        <div class="product-desc">Recharge rapide USB-C & USB.</div>
-        <div class="price">29,99 €</div>
-        <button class="order-btn">Commander</button>
-      </div>
-    </div>
-
-    <div class="product" data-name="🍓 Tiramisu Fraise Framboise" data-price="5.50">
-      <div class="product-inner">
-        <div class="fake-image"></div>
-        <div class="product-name">🍓 Tiramisu Fraise Framboise</div>
-        <div class="product-desc">Frais & fait maison, édition été.</div>
-        <div class="price">5,50 €</div>
-        <button class="order-btn">Commander</button>
-      </div>
-    </div>
-
-    <div class="product" data-name="🍫 Tiramisu Oréo" data-price="5.50">
-      <div class="product-inner">
-        <div class="fake-image"></div>
-        <div class="product-name">🍫 Tiramisu Oréo</div>
-        <div class="product-desc">Crème onctueuse & morceaux d’Oréo.</div>
-        <div class="price">5,50 €</div>
-        <button class="order-btn">Commander</button>
-      </div>
-    </div>
-
-    <div class="product" data-name="📦 Pack Trio Tiramisu" data-price="14.99">
-      <div class="product-inner">
-        <div class="fake-image"></div>
-        <div class="product-name">📦 Pack Trio Tiramisu</div>
-        <div class="product-desc">1 Café Cacao + 1 Fraise Framboise + 1 Passion.</div>
-        <div class="price">14,99 €</div>
-        <button class="order-btn">Commander</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- BARRE PANIER -->
-  <div id="cart-bar">
-    <span>🛒 Panier vide</span>
-    <span class="cart-bar-count">0 article – 0,00 €</span>
-  </div>
-
-  <!-- POPUP RÉSEAUX -->
-  <div class="overlay" id="overlay-reseaux">
-    <div class="modal">
-      <div class="modal-header">Réseaux sociaux</div>
-      <div class="modal-body">
-        <!-- ton image dans le repo -->
-        <img id="reseaux-image" src="reseaux-test.png.PNG" alt="Réseaux sociaux Shop Du Lev" />
-      </div>
-      <div class="modal-actions">
-        <button class="btn-primary" id="close-reseaux">Fermer</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- POPUP CHOIX QUANTITÉ -->
-  <div class="overlay" id="overlay-commande">
-    <div class="modal">
-      <div class="modal-header" id="commande-title">Ajouter au panier</div>
-      <div class="modal-body">
-        <div id="commande-body"></div>
-        <label>
-          Quantité :
-          <input type="number" id="commande-qty" min="1" step="1" value="1" />
-        </label>
-      </div>
-      <div class="modal-actions">
-        <button class="btn-secondary" id="btn-cancel-commande">Annuler</button>
-        <button class="btn-primary" id="btn-add-cart">Ajouter au panier</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- POPUP PANIER -->
-  <div class="overlay" id="overlay-panier">
-    <div class="modal">
-      <div class="modal-header">Votre panier</div>
-      <div class="modal-body">
-        <div id="empty-cart-msg">Aucun article pour le moment.</div>
-        <div id="cart-list"></div>
-        <div id="cart-total"></div>
-
-        <div class="pay-section">
-          <div class="pay-title">Moyen de paiement</div>
-          <div class="pay-options">
-            <label>
-              <input type="radio" name="pay-method" value="cash" checked />
-              Espèces à la livraison
-            </label>
-            <label>
-              <input type="radio" name="pay-method" value="lydia" />
-              Lydia / virement instantané
-            </label>
-            <label>
-              <input type="radio" name="pay-method" value="paypal" />
-              PayPal
-            </label>
-          </div>
-          <div class="pay-note">
-            Le bouton “Valider la commande” enverra le récap au bot (via Telegram Mini App).  
-            Tu pourras ensuite gérer le paiement directement avec le client.
-          </div>
+<div class="app">
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-left">
+            <div class="app-title">Luxe Panel</div>
+            <div class="app-subtitle">Contrôle depuis Telegram, version premium.</div>
         </div>
-      </div>
+        <div class="pill-status">
+            <span class="pill-dot"></span>
+            <span>Actif</span>
+        </div>
+    </header>
 
-      <div class="modal-actions">
-        <button class="btn-secondary" id="btn-close-panier">Fermer</button>
-        <button class="btn-primary" id="btn-submit-order">Valider la commande</button>
-      </div>
-    </div>
-  </div>
+    <!-- CARTE PRINCIPALE -->
+    <section class="card-main">
+        <div class="card-inner">
+            <!-- USER -->
+            <div class="user-row">
+                <div class="avatar" id="avatarInitials">--</div>
+                <div class="user-texts">
+                    <div class="user-name" id="userName">Utilisateur</div>
+                    <div class="user-handle" id="userHandle">@handle</div>
+                    <div class="badge-row">
+                        <div class="badge gold" id="badgeMain">Compte luxe</div>
+                        <div class="badge" id="badgeSecondary">Connecté via Telegram</div>
+                    </div>
+                </div>
+            </div>
 
-  <script>
-    /* --- BOUTONS DU HAUT --- */
-    const btnMiniApp = document.getElementById("btn-miniapp");
-    const btnReseaux = document.getElementById("btn-reseaux");
-    const btnLivraison = document.getElementById("btn-livraison");
-    const catalogue = document.getElementById("catalogue");
+            <!-- STATS (tu peux les brancher sur ton backend après) -->
+            <div class="stats-row">
+                <div class="stat-card">
+                    <div class="stat-label">Session</div>
+                    <div class="stat-value" id="statSession">En cours</div>
+                    <div class="stat-sub">WebApp active</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Niveau</div>
+                    <div class="stat-value" id="statLevel">Premium</div>
+                    <div class="stat-sub">Accès complet</div>
+                </div>
+            </div>
 
-    btnMiniApp.addEventListener("click", () => {
-      catalogue.scrollIntoView({ behavior: "smooth" });
-    });
+            <!-- ACTIONS -->
+            <div class="actions">
+                <button class="btn-primary" id="btnAction1">
+                    <span class="btn-icon">✨</span>
+                    <span>Action principale</span>
+                </button>
 
-    btnLivraison.addEventListener("click", () => {
-      alert(
-        "Livraison Shop Du Lev 🚚\n\n" +
-          "• Besançon & alentours\n" +
-          "• Commande via la mini-app ou le bot\n" +
-          "• Paiement : espèces / Lydia / PayPal."
-      );
-    });
+                <button class="btn-secondary" id="btnAction2">
+                    <span class="btn-icon">📊</span>
+                    <span>Voir les détails</span>
+                </button>
 
-    /* --- POPUP RESEAUX --- */
-    const overlayReseaux = document.getElementById("overlay-reseaux");
-    const closeReseaux = document.getElementById("close-reseaux");
+                <button class="btn-ghost" id="btnClose">
+                    <span class="btn-icon">✖</span>
+                    <span>Fermer la mini app</span>
+                </button>
+            </div>
 
-    btnReseaux.addEventListener("click", () => {
-      overlayReseaux.classList.add("show");
-    });
+            <!-- FOOTER -->
+            <div class="footer">
+                <div class="footer-text">
+                    Sécurisé & synchronisé avec votre bot.
+                </div>
+                <div class="brand">
+                    LUXE
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
 
-    closeReseaux.addEventListener("click", () => {
-      overlayReseaux.classList.remove("show");
-    });
+<!-- SDK TELEGRAM -->
+<script src="https://telegram.org/js/telegram-web-app.js"></script>
 
-    overlayReseaux.addEventListener("click", (e) => {
-      if (e.target === overlayReseaux) {
-        overlayReseaux.classList.remove("show");
-      }
-    });
+<script>
+    const tg = window.Telegram.WebApp;
 
-    /* --- PANIER --- */
-    const cartBar = document.getElementById("cart-bar");
-    const overlayCommande = document.getElementById("overlay-commande");
-    const overlayPanier = document.getElementById("overlay-panier");
+    // Étend la WebApp pour utiliser tout l'espace
+    tg.expand();
 
-    const commandeTitle = document.getElementById("commande-title");
-    const commandeBody = document.getElementById("commande-body");
-    const commandeQty = document.getElementById("commande-qty");
-    const btnAddCart = document.getElementById("btn-add-cart");
-    const btnCancelCommande = document.getElementById("btn-cancel-commande");
+    // Si tu veux adapter les couleurs au thème Telegram:
+    // const theme = tg.themeParams;
 
-    const cartList = document.getElementById("cart-list");
-    const cartTotal = document.getElementById("cart-total");
-    const emptyCartMsg = document.getElementById("empty-cart-msg");
-    const btnClosePanier = document.getElementById("btn-close-panier");
-    const btnSubmitOrder = document.getElementById("btn-submit-order");
+    const initDataUnsafe = tg.initDataUnsafe;
+    const user = initDataUnsafe.user || null;
 
-    let cart = [];
-    let currentProduct = null;
+    const avatarInitials = document.getElementById("avatarInitials");
+    const userName = document.getElementById("userName");
+    const userHandle = document.getElementById("userHandle");
 
-    // Associer les boutons commander
-    document.querySelectorAll(".product").forEach((productEl) => {
-      const btnOrder = productEl.querySelector(".order-btn");
-      const name = productEl.dataset.name;
-      const price = parseFloat(productEl.dataset.price);
+    const statSession = document.getElementById("statSession");
+    const statLevel = document.getElementById("statLevel");
 
-      btnOrder.addEventListener("click", () => {
-        openCommandeModal(name, price);
-      });
-    });
+    const btnAction1 = document.getElementById("btnAction1");
+    const btnAction2 = document.getElementById("btnAction2");
+    const btnClose = document.getElementById("btnClose");
 
-    function formatPrice(value) {
-      return value.toFixed(2).replace(".", ",") + " €";
+    // ====== INIT UI AVEC DONNÉES TELEGRAM ======
+    function initUser() {
+        if (!user) {
+            userName.textContent = "Utilisateur hors Telegram";
+            userHandle.textContent = "Ouvre la mini app dans Telegram pour voir les infos.";
+            avatarInitials.textContent = "??";
+            return;
+        }
+
+        const firstName = user.first_name || "";
+        const lastName = user.last_name || "";
+        const username = user.username || null;
+
+        const initials =
+            (firstName ? firstName[0] : "") +
+            (lastName ? lastName[0] : (firstName && firstName.length > 1 ? firstName[1] : ""));
+
+        avatarInitials.textContent = initials.toUpperCase() || "UX";
+        userName.textContent = `${firstName} ${lastName}`.trim();
+        userHandle.textContent = username ? `@${username}` : "Aucun username";
+
+        // Tu peux adapter les badges selon tes règles
+        // Exemple simple :
+        if (username) {
+            statLevel.textContent = "Membre";
+        }
     }
 
-    function openCommandeModal(name, price) {
-      currentProduct = { name, price };
-      commandeTitle.textContent = "Ajouter au panier";
-      commandeBody.textContent = name + " – " + formatPrice(price);
-      commandeQty.value = "1";
-      overlayCommande.classList.add("show");
-      commandeQty.focus();
-    }
+    // ====== EXEMPLES D'ACTIONS ======
+    function handleAction1() {
+        // Ici tu mets ta vraie logique.
+        // Exemple: envoyer un message au bot via sendData
+        tg.sendData(JSON.stringify({
+            type: "primary_action",
+            timestamp: Date.now()
+        }));
 
-    function closeCommandeModal() {
-      overlayCommande.classList.remove("show");
-      currentProduct = null;
-    }
-
-    btnCancelCommande.addEventListener("click", closeCommandeModal);
-
-    overlayCommande.addEventListener("click", (e) => {
-      if (e.target === overlayCommande) {
-        closeCommandeModal();
-      }
-    });
-
-    btnAddCart.addEventListener("click", () => {
-      if (!currentProduct) return;
-
-      let qty = parseInt(commandeQty.value, 10);
-      if (isNaN(qty) || qty <= 0) {
-        alert("Merci d’entrer une quantité valide (au moins 1).");
-        return;
-      }
-
-      const existing = cart.find((item) => item.name === currentProduct.name);
-      if (existing) {
-        existing.qty += qty;
-      } else {
-        cart.push({
-          name: currentProduct.name,
-          price: currentProduct.price,
-          qty: qty,
+        // Tu peux aussi afficher un popup Telegram
+        tg.showPopup({
+            title: "Action envoyée",
+            message: "Ton action principale a été transmise au bot.",
+            buttons: [{id: "ok", type: "default", text: "OK"}]
         });
-      }
-
-      updateCartBar();
-      closeCommandeModal();
-    });
-
-    function updateCartBar() {
-      let totalQty = 0;
-      let totalPrice = 0;
-
-      cart.forEach((item) => {
-        totalQty += item.qty;
-        totalPrice += item.qty * item.price;
-      });
-
-      const labelSpan = cartBar.querySelector("span:first-child");
-      const countSpan = cartBar.querySelector(".cart-bar-count");
-
-      if (totalQty === 0) {
-        labelSpan.textContent = "🛒 Panier vide";
-        countSpan.textContent = "0 article – 0,00 €";
-      } else {
-        labelSpan.textContent = "🛒 Voir le panier";
-        const word = totalQty > 1 ? "articles" : "article";
-        countSpan.textContent =
-          totalQty + " " + word + " – " + formatPrice(totalPrice);
-      }
     }
 
-    // Ouvrir / fermer le panier
-    cartBar.addEventListener("click", () => {
-      openCartModal();
-    });
-
-    function openCartModal() {
-      renderCart();
-      overlayPanier.classList.add("show");
+    function handleAction2() {
+        // Ici tu peux ouvrir un lien externe, ou montrer un message selon ton besoin
+        tg.showAlert("Ici tu peux afficher les détails, les stats, etc. (à coder côté front/back)");
     }
 
-    function closeCartModal() {
-      overlayPanier.classList.remove("show");
+    function handleClose() {
+        tg.close();
     }
 
-    btnClosePanier.addEventListener("click", closeCartModal);
+    // ====== LISTENERS ======
+    btnAction1.addEventListener("click", handleAction1);
+    btnAction2.addEventListener("click", handleAction2);
+    btnClose.addEventListener("click", handleClose);
 
-    overlayPanier.addEventListener("click", (e) => {
-      if (e.target === overlayPanier) {
-        closeCartModal();
-      }
-    });
+    // ====== LANCEMENT ======
+    initUser();
+</script>
 
-    // Afficher le contenu du panier avec +/-
-    function renderCart() {
-      cartList.innerHTML = "";
-      let totalQty = 0;
-      let totalPrice = 0;
-
-      if (cart.length === 0) {
-        emptyCartMsg.style.display = "block";
-        cartTotal.textContent = "";
-        return;
-      }
-
-      emptyCartMsg.style.display = "none";
-
-      cart.forEach((item, index) => {
-        totalQty += item.qty;
-        totalPrice += item.qty * item.price;
-
-        const row = document.createElement("div");
-        row.className = "cart-item";
-        row.dataset.index = index;
-
-        const left = document.createElement("div");
-        left.className = "cart-row-left";
-
-        const nameSpan = document.createElement("div");
-        nameSpan.className = "cart-item-name";
-        nameSpan.textContent = item.name;
-
-        const controls = document.createElement("div");
-        controls.className = "cart-controls";
-
-        const minusBtn = document.createElement("button");
-        minusBtn.textContent = "−";
-        minusBtn.className = "qty-btn qty-minus";
-
-        const qtySpan = document.createElement("span");
-        qtySpan.className = "cart-item-qty";
-        qtySpan.textContent = "x" + item.qty;
-
-        const plusBtn = document.createElement("button");
-        plusBtn.textContent = "+";
-        plusBtn.className = "qty-btn qty-plus";
-
-        controls.appendChild(minusBtn);
-        controls.appendChild(qtySpan);
-        controls.appendChild(plusBtn);
-
-        left.appendChild(nameSpan);
-        left.appendChild(controls);
-
-        const right = document.createElement("div");
-        right.className = "cart-item-price";
-        right.textContent = formatPrice(item.qty * item.price);
-
-        row.appendChild(left);
-        row.appendChild(right);
-
-        cartList.appendChild(row);
-      });
-
-      cartTotal.textContent =
-        "Total (" +
-        totalQty +
-        (totalQty > 1 ? " articles" : " article") +
-        ") : " +
-        formatPrice(totalPrice);
-    }
-
-    // Gérer les boutons +/- avec délégation
-    cartList.addEventListener("click", (e) => {
-      const isMinus = e.target.classList.contains("qty-minus");
-      const isPlus = e.target.classList.contains("qty-plus");
-      if (!isMinus && !isPlus) return;
-
-      const row = e.target.closest(".cart-item");
-      if (!row) return;
-
-      const index = parseInt(row.dataset.index, 10);
-      if (isNaN(index)) return;
-
-      const item = cart[index];
-      if (!item) return;
-
-      if (isPlus) {
-        item.qty += 1;
-      } else if (isMinus) {
-        item.qty -= 1;
-        if (item.qty <= 0) {
-          cart.splice(index, 1);
-        }
-      }
-
-      updateCartBar();
-      renderCart();
-    });
-
-    // Validation / envoi de commande
-    btnSubmitOrder.addEventListener("click", () => {
-      if (cart.length === 0) {
-        alert("Ton panier est vide.");
-        return;
-      }
-
-      const payInput = document.querySelector('input[name="pay-method"]:checked');
-      const payMethod = payInput ? payInput.value : "cash";
-
-      let totalQty = 0;
-      let totalPrice = 0;
-      let lines = [];
-
-      cart.forEach((item) => {
-        totalQty += item.qty;
-        totalPrice += item.qty * item.price;
-        lines.push("• " + item.name + " x" + item.qty + " = " + formatPrice(item.qty * item.price));
-      });
-
-      let payText = "";
-      if (payMethod === "cash") payText = "Espèces à la livraison";
-      if (payMethod === "lydia") payText = "Lydia / virement instantané";
-      if (payMethod === "paypal") payText = "PayPal";
-
-      const summary =
-        "🛒 Nouvelle commande Shop Du Lev\n\n" +
-        lines.join("\n") +
-        "\n\nTotal : " +
-        formatPrice(totalPrice) +
-        "\nArticles : " +
-        totalQty +
-        "\nPaiement : " +
-        payText;
-
-      // Envoi au bot via Telegram WebApp si disponible
-      try {
-        if (window.Telegram && window.Telegram.WebApp && window.Telegram.WebApp.sendData) {
-          window.Telegram.WebApp.sendData(summary);
-          alert("Commande envoyée au bot ✅");
-        } else {
-          // Fallback si on est juste dans le navigateur
-          alert(summary);
-        }
-      } catch (err) {
-        console.error(err);
-        alert("Erreur lors de l’envoi de la commande.");
-      }
-
-      closeCartModal();
-    });
-  </script>
 </body>
 </html>
