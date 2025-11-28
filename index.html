@@ -1,480 +1,526 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-    <meta charset="UTF-8">
-    <title>Mini App Luxe</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>Mini App Du Lev</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-    <!-- STYLE LUXE -->
-    <style>
-        :root {
-            --bg: #050507;
-            --bg-gradient: radial-gradient(circle at top, #1b1b20 0, #050507 55%, #000 100%);
-            --card-bg: rgba(10, 10, 14, 0.96);
-            --border-soft: rgba(255, 255, 255, 0.08);
-            --border-strong: rgba(242, 211, 138, 0.4);
-            --gold: #f2d38a;
-            --gold-soft: rgba(242, 211, 138, 0.08);
-            --gold-strong: #d6b25b;
-            --text-main: #f9f9f9;
-            --text-muted: #9b9b9b;
-            --danger: #ef4444;
-            --radius-lg: 20px;
-            --radius-pill: 999px;
-            --shadow-soft: 0 22px 60px rgba(0, 0, 0, 0.85);
-        }
+  <style>
+    :root {
+      --bg: #f3f6f1;
+      --bg-card: #ffffff;
+      --bg-menu: #e5f3ea;
+      --bg-product: #f8fbf6;
+      --accent: #3aa46b;
+      --accent-dark: #267754;
+      --accent-soft: rgba(58, 164, 107, 0.1);
+      --text-main: #111827;
+      --text-muted: #6b7280;
+      --shadow-soft: 0 18px 40px rgba(15, 23, 42, 0.16);
+      --radius-xl: 22px;
+      --radius-lg: 18px;
+      --radius-pill: 999px;
+    }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-        html, body {
-            height: 100%;
-        }
+    html,
+    body {
+      height: 100%;
+    }
 
-        body {
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", sans-serif;
-            background: var(--bg-gradient);
-            color: var(--text-main);
-            display: flex;
-            justify-content: center;
-            align-items: stretch;
-        }
+    body {
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text",
+        sans-serif;
+      background: var(--bg);
+      color: var(--text-main);
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+    }
 
-        .app {
-            width: 100%;
-            max-width: 480px;
-            margin: 0 auto;
-            padding: 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .app {
+      position: relative;
+      width: 100%;
+      max-width: 480px;
+      margin: 0 auto;
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      overflow: hidden;
+    }
 
-        /* HEADER */
-        .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-        }
+    /* ==== Décor arbres / nature ==== */
+    .bg-tree {
+      position: absolute;
+      inset: -80px -40px auto;
+      z-index: -1;
+      pointer-events: none;
+    }
 
-        .header-left {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
+    .tree-left,
+    .tree-right {
+      position: absolute;
+      width: 160px;
+      height: 260px;
+      background: radial-gradient(circle at 30% 0, #c8f3d8 0, #6fcf97 35%, #2f855a 70%, #14532d 100%);
+      border-radius: 100px 100px 40px 40px;
+      filter: blur(0.3px);
+      opacity: 0.9;
+    }
 
-        .app-title {
-            font-size: 1.1rem;
-            font-weight: 600;
-            letter-spacing: 0.14em;
-            text-transform: uppercase;
-        }
+    .tree-left {
+      left: -40px;
+      top: 10px;
+    }
 
-        .app-subtitle {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
+    .tree-right {
+      right: -55px;
+      top: -10px;
+      transform: scale(0.9);
+    }
 
-        .pill-status {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 10px;
-            border-radius: var(--radius-pill);
-            border: 1px solid var(--border-strong);
-            background: linear-gradient(135deg, rgba(15, 15, 17, 0.95), rgba(50, 37, 13, 0.9));
-            font-size: 0.7rem;
-            letter-spacing: 0.16em;
-            text-transform: uppercase;
-        }
+    .tree-trunk {
+      position: absolute;
+      width: 26px;
+      height: 80px;
+      background: linear-gradient(to bottom, #b45309, #78350f);
+      border-radius: 40px;
+      bottom: -20px;
+      left: 50%;
+      transform: translateX(-50%);
+      filter: blur(0.2px);
+    }
 
-        .pill-dot {
-            width: 8px;
-            height: 8px;
-            border-radius: 999px;
-            background: var(--gold);
-            box-shadow: 0 0 0 5px var(--gold-soft);
-        }
+    /* === HEADER === */
+    .top-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 2px;
+    }
 
-        /* CARTE PRINCIPALE */
-        .card-main {
-            border-radius: var(--radius-lg);
-            background: var(--card-bg);
-            border: 1px solid var(--border-soft);
-            box-shadow: var(--shadow-soft);
-            padding: 16px 14px 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            position: relative;
-            overflow: hidden;
-        }
+    .close-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: rgba(31, 41, 55, 0.06);
+      font-size: 0.82rem;
+      color: #111827;
+    }
 
-        .card-main::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 120% -20%, rgba(242, 211, 138, 0.22), transparent 55%);
-            opacity: 0.8;
-            pointer-events: none;
-        }
+    .close-btn span:first-child {
+      display: inline-flex;
+      width: 22px;
+      height: 22px;
+      border-radius: 999px;
+      align-items: center;
+      justify-content: center;
+      background: rgba(15, 23, 42, 0.08);
+    }
 
-        .card-inner {
-            position: relative;
-            z-index: 1;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+    .top-right {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.7;
+      font-size: 0.8rem;
+    }
 
-        .user-row {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
+    /* HEADER CARD (avatar + nom) */
+    .header-card {
+      position: relative;
+      border-radius: var(--radius-xl);
+      background: var(--bg-card);
+      box-shadow: var(--shadow-soft);
+      padding: 16px 14px 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+    }
 
-        .avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 16px;
-            background: radial-gradient(circle at 30% 0, #ffffff 0, #f2d38a 18%, #1b1b1b 55%, #000 100%);
-            border: 1px solid var(--border-strong);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-            color: #111;
-        }
+    .header-card::before {
+      content: "";
+      position: absolute;
+      inset: -20px;
+      background: radial-gradient(circle at 0 0, rgba(165, 243, 192, 0.45), transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
 
-        .user-texts {
-            display: flex;
-            flex-direction: column;
-            gap: 2px;
-        }
+    .avatar {
+      position: relative;
+      z-index: 1;
+      width: 56px;
+      height: 56px;
+      border-radius: 999px;
+      background: radial-gradient(circle at 30% 0, #efffef 0, #6ee7b7 30%, #22c55e 65%, #15803d 100%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 1.4rem;
+      color: #064e3b;
+      box-shadow: 0 12px 30px rgba(34, 197, 94, 0.4);
+    }
 
-        .user-name {
-            font-size: 0.98rem;
-            font-weight: 500;
-        }
+    .user-infos {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+      flex: 1;
+    }
 
-        .user-handle {
-            font-size: 0.78rem;
-            color: var(--text-muted);
-        }
+    .user-name {
+      font-size: 1rem;
+      font-weight: 600;
+    }
 
-        .badge-row {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 6px;
-            margin-top: 4px;
-        }
+    .user-sub {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
 
-        .badge {
-            border-radius: var(--radius-pill);
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 4px 9px;
-            font-size: 0.7rem;
-            color: var(--text-muted);
-            background: rgba(15, 15, 18, 0.9);
-        }
+    .user-tag {
+      margin-top: 4px;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 4px 8px;
+      border-radius: var(--radius-pill);
+      background: rgba(22, 163, 74, 0.06);
+      color: #15803d;
+      font-size: 0.72rem;
+    }
 
-        .badge.gold {
-            color: var(--gold);
-            border-color: rgba(242, 211, 138, 0.5);
-            background: linear-gradient(135deg, rgba(242, 211, 138, 0.1), rgba(0, 0, 0, 0.7));
-        }
+    .user-tag-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #22c55e;
+    }
 
-        /* LIGNE STATS */
-        .stats-row {
-            display: flex;
-            gap: 8px;
-        }
+    .header-actions {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 6px;
+    }
 
-        .stat-card {
-            flex: 1;
-            border-radius: 14px;
-            border: 1px solid rgba(255, 255, 255, 0.06);
-            padding: 8px 9px;
-            background: radial-gradient(circle at top left, rgba(242, 211, 138, 0.17), rgba(12, 12, 16, 0.96));
-            display: flex;
-            flex-direction: column;
-            gap: 4px;
-        }
+    .mini-label {
+      padding: 4px 7px;
+      border-radius: 999px;
+      background: rgba(15, 23, 42, 0.06);
+      font-size: 0.7rem;
+    }
 
-        .stat-label {
-            font-size: 0.68rem;
-            text-transform: uppercase;
-            letter-spacing: 0.12em;
-            color: var(--text-muted);
-        }
+    .dropdown {
+      width: 30px;
+      height: 30px;
+      border-radius: 999px;
+      border: none;
+      background: rgba(15, 23, 42, 0.06);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-        .stat-value {
-            font-size: 0.96rem;
-            font-weight: 600;
-        }
+    /* === MENU BUTTONS === */
+    .menu {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-top: 2px;
+    }
 
-        .stat-sub {
-            font-size: 0.72rem;
-            color: var(--text-muted);
-        }
+    .menu-btn {
+      border-radius: var(--radius-lg);
+      background: var(--bg-menu);
+      border: 1px solid rgba(148, 163, 184, 0.25);
+      padding: 10px 14px;
+      font-size: 0.96rem;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.08);
+    }
 
-        /* ACTIONS */
-        .actions {
-            display: flex;
-            flex-direction: column;
-            gap: 7px;
-            margin-top: 4px;
-        }
+    .menu-btn span:last-child {
+      font-size: 1.05rem;
+      opacity: 0.7;
+    }
 
-        .btn-primary,
-        .btn-secondary,
-        .btn-ghost {
-            width: 100%;
-            border-radius: var(--radius-pill);
-            padding: 10px 14px;
-            border: none;
-            font-size: 0.9rem;
-            font-weight: 500;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            transition: transform 0.12s ease, box-shadow 0.15s ease, background 0.15s ease, opacity 0.15s ease;
-        }
+    /* === PRODUITS === */
+    .products {
+      margin-top: 4px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding-bottom: 12px;
+    }
 
-        .btn-primary {
-            background: linear-gradient(135deg, var(--gold), var(--gold-strong));
-            color: #111;
-            box-shadow: 0 14px 35px rgba(242, 211, 138, 0.35);
-        }
+    .product-card {
+      border-radius: var(--radius-xl);
+      background: var(--bg-product);
+      border: 1px solid rgba(209, 213, 219, 0.7);
+      padding: 12px 14px 14px;
+      box-shadow: 0 18px 40px rgba(148, 163, 184, 0.25);
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
 
-        .btn-primary:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 18px 40px rgba(242, 211, 138, 0.5);
-        }
+    .product-image {
+      height: 120px;
+      border-radius: 18px;
+      background: linear-gradient(135deg, #fee2b3, #f97316 40%, #ea580c 85%);
+    }
 
-        .btn-secondary {
-            background: rgba(18, 18, 22, 0.95);
-            border: 1px solid rgba(255, 255, 255, 0.15);
-            color: var(--text-main);
-        }
+    .product-title-row {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 4px;
+    }
 
-        .btn-secondary:hover {
-            background: rgba(25, 25, 30, 0.98);
-            transform: translateY(-1px);
-        }
+    .product-title-row span:first-child {
+      font-size: 1.1rem;
+    }
 
-        .btn-ghost {
-            background: transparent;
-            border: none;
-            color: var(--text-muted);
-            font-size: 0.82rem;
-        }
+    .product-title {
+      font-weight: 600;
+      font-size: 0.98rem;
+    }
 
-        .btn-ghost:hover {
-            opacity: 0.8;
-        }
+    .product-desc {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+    }
 
-        .btn-icon {
-            font-size: 1.05rem;
-        }
+    .product-bottom {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-top: 2px;
+    }
 
-        /* FOOTER / BOTTOM */
-        .footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 4px;
-        }
+    .product-price {
+      font-weight: 700;
+      font-size: 1.02rem;
+      color: var(--accent-dark);
+    }
 
-        .footer-text {
-            font-size: 0.7rem;
-            color: var(--text-muted);
-        }
+    .product-btn {
+      padding: 8px 14px;
+      border-radius: var(--radius-pill);
+      border: none;
+      background: linear-gradient(135deg, #6ee7b7, #22c55e);
+      color: #064e3b;
+      font-weight: 600;
+      font-size: 0.9rem;
+      box-shadow: 0 12px 28px rgba(34, 197, 94, 0.35);
+    }
 
-        .brand {
-            font-size: 0.78rem;
-            letter-spacing: 0.18em;
-            text-transform: uppercase;
-            color: var(--gold);
-        }
-
-        .danger {
-            color: var(--danger);
-        }
-
-    </style>
+    .product-btn:active {
+      transform: translateY(1px);
+      box-shadow: 0 4px 14px rgba(34, 197, 94, 0.28);
+    }
+  </style>
 </head>
 <body>
+  <div class="app">
+    <!-- Décor arbres -->
+    <div class="bg-tree">
+      <div class="tree-left">
+        <div class="tree-trunk"></div>
+      </div>
+      <div class="tree-right">
+        <div class="tree-trunk"></div>
+      </div>
+    </div>
 
-<div class="app">
-    <!-- HEADER -->
-    <header class="header">
-        <div class="header-left">
-            <div class="app-title">Luxe Panel</div>
-            <div class="app-subtitle">Contrôle depuis Telegram, version premium.</div>
+    <!-- Top bar -->
+    <div class="top-bar">
+      <button class="close-btn" id="btnCloseTop">
+        <span>✕</span>
+        <span>Fermer</span>
+      </button>
+      <div class="top-right">
+        <span id="timeDisplay">--:--</span>
+      </div>
+    </div>
+
+    <!-- Header avec avatar -->
+    <section class="header-card">
+      <div class="avatar" id="avatarInitials">SL</div>
+      <div class="user-infos">
+        <div class="user-name" id="userName">Mini App Du Lev</div>
+        <div class="user-sub" id="userSub">Gestion depuis Telegram</div>
+        <div class="user-tag">
+          <span class="user-tag-dot"></span>
+          <span id="userTagLabel">Connecté</span>
         </div>
-        <div class="pill-status">
-            <span class="pill-dot"></span>
-            <span>Actif</span>
-        </div>
-    </header>
-
-    <!-- CARTE PRINCIPALE -->
-    <section class="card-main">
-        <div class="card-inner">
-            <!-- USER -->
-            <div class="user-row">
-                <div class="avatar" id="avatarInitials">--</div>
-                <div class="user-texts">
-                    <div class="user-name" id="userName">Utilisateur</div>
-                    <div class="user-handle" id="userHandle">@handle</div>
-                    <div class="badge-row">
-                        <div class="badge gold" id="badgeMain">Compte luxe</div>
-                        <div class="badge" id="badgeSecondary">Connecté via Telegram</div>
-                    </div>
-                </div>
-            </div>
-
-            <!-- STATS (tu peux les brancher sur ton backend après) -->
-            <div class="stats-row">
-                <div class="stat-card">
-                    <div class="stat-label">Session</div>
-                    <div class="stat-value" id="statSession">En cours</div>
-                    <div class="stat-sub">WebApp active</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-label">Niveau</div>
-                    <div class="stat-value" id="statLevel">Premium</div>
-                    <div class="stat-sub">Accès complet</div>
-                </div>
-            </div>
-
-            <!-- ACTIONS -->
-            <div class="actions">
-                <button class="btn-primary" id="btnAction1">
-                    <span class="btn-icon">✨</span>
-                    <span>Action principale</span>
-                </button>
-
-                <button class="btn-secondary" id="btnAction2">
-                    <span class="btn-icon">📊</span>
-                    <span>Voir les détails</span>
-                </button>
-
-                <button class="btn-ghost" id="btnClose">
-                    <span class="btn-icon">✖</span>
-                    <span>Fermer la mini app</span>
-                </button>
-            </div>
-
-            <!-- FOOTER -->
-            <div class="footer">
-                <div class="footer-text">
-                    Sécurisé & synchronisé avec votre bot.
-                </div>
-                <div class="brand">
-                    LUXE
-                </div>
-            </div>
-        </div>
+      </div>
+      <div class="header-actions">
+        <div class="mini-label">Telegram</div>
+        <button class="dropdown">⋯</button>
+      </div>
     </section>
-</div>
 
-<!-- SDK TELEGRAM -->
-<script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Menu boutons -->
+    <section class="menu">
+      <button class="menu-btn" id="btnMiniApp">
+        <span>Mini App Du Lev</span>
+        <span>›</span>
+      </button>
+      <button class="menu-btn" id="btnReseaux">
+        <span>Réseaux Sociaux</span>
+        <span>›</span>
+      </button>
+      <button class="menu-btn" id="btnLivraison">
+        <span>Livraison 🚚</span>
+        <span>›</span>
+      </button>
+    </section>
 
-<script>
+    <!-- Produits -->
+    <section class="products">
+      <!-- Produit 1 -->
+      <article class="product-card" data-product-id="ecouteurs_bt">
+        <div class="product-image"></div>
+        <div class="product-title-row">
+          <span>🎧</span>
+          <span class="product-title">Écouteurs Bluetooth</span>
+        </div>
+        <p class="product-desc">
+          Autonomie, basses, réduction de bruit.
+        </p>
+        <div class="product-bottom">
+          <span class="product-price">34,99 €</span>
+          <button class="product-btn">Commander</button>
+        </div>
+      </article>
+
+      <!-- Produit 2 -->
+      <article class="product-card" data-product-id="powerbank_20k">
+        <div class="product-image"></div>
+        <div class="product-title-row">
+          <span>🔋</span>
+          <span class="product-title">Powerbank 20 000 mAh</span>
+        </div>
+        <p class="product-desc">
+          Recharge rapide, USB-C & USB-A.
+        </p>
+        <div class="product-bottom">
+          <span class="product-price">49,99 €</span>
+          <button class="product-btn">Commander</button>
+        </div>
+      </article>
+    </section>
+  </div>
+
+  <!-- Telegram WebApp SDK -->
+  <script src="https://telegram.org/js/telegram-web-app.js"></script>
+  <script>
     const tg = window.Telegram.WebApp;
-
-    // Étend la WebApp pour utiliser tout l'espace
     tg.expand();
-
-    // Si tu veux adapter les couleurs au thème Telegram:
-    // const theme = tg.themeParams;
 
     const initDataUnsafe = tg.initDataUnsafe;
     const user = initDataUnsafe.user || null;
 
     const avatarInitials = document.getElementById("avatarInitials");
     const userName = document.getElementById("userName");
-    const userHandle = document.getElementById("userHandle");
+    const userSub = document.getElementById("userSub");
+    const userTagLabel = document.getElementById("userTagLabel");
+    const timeDisplay = document.getElementById("timeDisplay");
 
-    const statSession = document.getElementById("statSession");
-    const statLevel = document.getElementById("statLevel");
+    // Affichage de l'heure (comme sur ton screen en haut)
+    function updateTime() {
+      const now = new Date();
+      const h = String(now.getHours()).padStart(2, "0");
+      const m = String(now.getMinutes()).padStart(2, "0");
+      timeDisplay.textContent = `${h}:${m}`;
+    }
+    updateTime();
 
-    const btnAction1 = document.getElementById("btnAction1");
-    const btnAction2 = document.getElementById("btnAction2");
-    const btnClose = document.getElementById("btnClose");
-
-    // ====== INIT UI AVEC DONNÉES TELEGRAM ======
+    // Init user depuis Telegram
     function initUser() {
-        if (!user) {
-            userName.textContent = "Utilisateur hors Telegram";
-            userHandle.textContent = "Ouvre la mini app dans Telegram pour voir les infos.";
-            avatarInitials.textContent = "??";
-            return;
-        }
+      if (!user) {
+        avatarInitials.textContent = "SL";
+        userName.textContent = "Mini App Du Lev";
+        userSub.textContent = "Ouvre depuis Telegram pour voir ton profil.";
+        userTagLabel.textContent = "Hors session";
+        return;
+      }
 
-        const firstName = user.first_name || "";
-        const lastName = user.last_name || "";
-        const username = user.username || null;
+      const firstName = user.first_name || "";
+      const lastName = user.last_name || "";
+      const username = user.username || "";
 
-        const initials =
-            (firstName ? firstName[0] : "") +
-            (lastName ? lastName[0] : (firstName && firstName.length > 1 ? firstName[1] : ""));
+      const initials =
+        (firstName[0] || "") + (lastName[0] || firstName[1] || "");
+      avatarInitials.textContent = initials.toUpperCase() || "SL";
 
-        avatarInitials.textContent = initials.toUpperCase() || "UX";
-        userName.textContent = `${firstName} ${lastName}`.trim();
-        userHandle.textContent = username ? `@${username}` : "Aucun username";
-
-        // Tu peux adapter les badges selon tes règles
-        // Exemple simple :
-        if (username) {
-            statLevel.textContent = "Membre";
-        }
+      userName.textContent = `${firstName} ${lastName}`.trim() || "Utilisateur Telegram";
+      userSub.textContent = username ? `@${username}` : "Connecté via Telegram";
+      userTagLabel.textContent = "Connecté";
     }
 
-    // ====== EXEMPLES D'ACTIONS ======
-    function handleAction1() {
-        // Ici tu mets ta vraie logique.
-        // Exemple: envoyer un message au bot via sendData
-        tg.sendData(JSON.stringify({
-            type: "primary_action",
-            timestamp: Date.now()
-        }));
-
-        // Tu peux aussi afficher un popup Telegram
-        tg.showPopup({
-            title: "Action envoyée",
-            message: "Ton action principale a été transmise au bot.",
-            buttons: [{id: "ok", type: "default", text: "OK"}]
-        });
-    }
-
-    function handleAction2() {
-        // Ici tu peux ouvrir un lien externe, ou montrer un message selon ton besoin
-        tg.showAlert("Ici tu peux afficher les détails, les stats, etc. (à coder côté front/back)");
-    }
-
-    function handleClose() {
-        tg.close();
-    }
-
-    // ====== LISTENERS ======
-    btnAction1.addEventListener("click", handleAction1);
-    btnAction2.addEventListener("click", handleAction2);
-    btnClose.addEventListener("click", handleClose);
-
-    // ====== LANCEMENT ======
     initUser();
-</script>
 
+    // Fermer (top + bouton close Telegram)
+    document.getElementById("btnCloseTop").addEventListener("click", () => {
+      tg.close();
+    });
+
+    // Menu buttons – à adapter si tu veux envoyer des actions au bot
+    document.getElementById("btnMiniApp").addEventListener("click", () => {
+      tg.sendData(JSON.stringify({ type: "menu", action: "mini_app" }));
+    });
+
+    document.getElementById("btnReseaux").addEventListener("click", () => {
+      tg.sendData(JSON.stringify({ type: "menu", action: "reseaux" }));
+    });
+
+    document.getElementById("btnLivraison").addEventListener("click", () => {
+      tg.sendData(JSON.stringify({ type: "menu", action: "livraison" }));
+    });
+
+    // Boutons "Commander"
+    document.querySelectorAll(".product-card").forEach((card) => {
+      const btn = card.querySelector(".product-btn");
+      const productId = card.getAttribute("data-product-id");
+      const title = card.querySelector(".product-title").textContent;
+
+      btn.addEventListener("click", () => {
+        tg.sendData(
+          JSON.stringify({
+            type: "order",
+            product_id: productId,
+            product_title: title,
+          })
+        );
+        tg.showPopup({
+          title: "Commande",
+          message: `Ta demande pour "${title}" a été envoyée au bot ✅`,
+          buttons: [{ id: "ok", type: "default", text: "OK" }],
+        });
+      });
+    });
+  </script>
 </body>
 </html>
